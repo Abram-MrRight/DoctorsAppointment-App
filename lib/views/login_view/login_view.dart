@@ -1,3 +1,4 @@
+import 'package:doctors_appt/consts/images.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +12,10 @@ class LoginView extends StatelessWidget {
        padding: EdgeInsets.all(8),
        child: Column(
          children: [
-           Expanded(child: Container(
-             color: Colors.red,
+           Expanded(child: Image.asset(
+             Appassets.dotorfront,
+             width: 800,
+             height: 700,
            )),
            Expanded(
                flex: 2,
