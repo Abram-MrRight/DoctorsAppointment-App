@@ -3,15 +3,16 @@ import 'package:doctors_appt/consts/images.dart';
 import 'package:doctors_appt/consts/strings.dart';
 import 'package:doctors_appt/res/components/custom_button.dart';
 import 'package:doctors_appt/res/components/custom_textfield.dart';
+import 'package:doctors_appt/views/home_view/home_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:get/get.dart';
 
-import '../signup_view/signup_view.dart';
+import '../login_view/login_view.dart';
 
-class LoginView extends StatelessWidget {
-  const LoginView({Key? key});
+class SignupView extends StatelessWidget {
+  const SignupView({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +24,11 @@ class LoginView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              Appassets.imLogin,
+              Appassets.imgSignup,
               width: 200,
             ),
             10.heightBox,
-            AppStyles.bold(title: AppStrings.welcomeBack, size: AppSizes.size18.toDouble(), textStyle: TextStyle(color: Colors.white)),
-            AppStyles.bold(title: AppStrings.weAreExcited, textStyle:TextStyle(color: Colors.white)),
+            AppStyles.bold(title: AppStrings.signupNow, size: AppSizes.size18.toDouble(), textStyle: TextStyle(color: Colors.white), alignment: TextAlign.center),
 
             //AppStrings.welcomeBack.text.make(),
             // AppStrings.weAreExcited.text.make(),
@@ -39,29 +39,28 @@ class LoginView extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+
+                      CustomTextField(hint: AppStrings.fullName),
                       CustomTextField(hint: AppStrings.email),
                       10.heightBox,
                       CustomTextField(hint: AppStrings.password),
                       20.heightBox,
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: AppStyles.normal(title: AppStrings.forgetPassword),
-                      ),
-                      20.heightBox,
-                      CustomButton(buttonText: AppStrings.login, onTap: () {}),
+                      CustomButton(buttonText: AppStrings.signup, onTap: () {
+                        Get.to(()=> const HomeView());
+                      }),
                       20.heightBox,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          AppStyles.normal(title: AppStrings.dontHaveAccount),
+                          AppStyles.normal(title: AppStrings.alreadyHaveAccount),
                           8.widthBox,
 
                           GestureDetector(
                             onTap: (){
-                              Get.to(()=>const SignupView());
+                              Get.back();
                             },
                             child: Text(
-                              AppStrings.signup,
+                              AppStrings.login,
                               style: TextStyle(color: Colors.blue), // Set the text color directly here
                             ),
                           ),
