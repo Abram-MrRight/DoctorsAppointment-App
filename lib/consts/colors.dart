@@ -7,5 +7,7 @@ class AppColors{
       yellowColor = const Color(0xffff9F00),
       bgColor = const Color(0xffF5F5F5),
       textColor = Colors.black,
-  bgDarkColor = const Color(0xffECECEC);
+      blueColor = Colors.blue,
+      whiteColor =Colors.white,
+      bgDarkColor = const Color(0xffECECEC);
 }
