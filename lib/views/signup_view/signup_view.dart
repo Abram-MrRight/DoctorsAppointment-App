@@ -1,6 +1,7 @@
 import 'package:doctors_appt/consts/consts.dart';
 import 'package:doctors_appt/consts/images.dart';
 import 'package:doctors_appt/consts/strings.dart';
+import 'package:doctors_appt/controllers/auth_controller.dart';
 import 'package:doctors_appt/res/components/custom_button.dart';
 import 'package:doctors_appt/res/components/custom_textfield.dart';
 import 'package:doctors_appt/views/home_view/home_view.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:get/get.dart';
 
+import '../home_view/home.dart';
 import '../login_view/login_view.dart';
 
 class SignupView extends StatelessWidget {
@@ -16,6 +18,7 @@ class SignupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(AuthController());
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.only(top: 40),
@@ -40,13 +43,18 @@ class SignupView extends StatelessWidget {
                   child: Column(
                     children: [
 
-                      CustomTextField(hint: AppStrings.fullName),
-                      CustomTextField(hint: AppStrings.email),
+                      CustomTextField(hint: AppStrings.fullName, textController: controller.fulnameController,),
+                      CustomTextField(hint: AppStrings.email, textController: controller.emailController,),
                       10.heightBox,
-                      CustomTextField(hint: AppStrings.password),
+                      CustomTextField(hint: AppStrings.password, textController: controller.passwordController,),
                       20.heightBox,
-                      CustomButton(buttonText: AppStrings.signup, onTap: () {
-                        Get.to(()=> const HomeView());
+                      CustomButton(
+                          buttonText: AppStrings.signup,
+                          onTap: () async{
+                         await controller.signupUser();
+                        if(controller.userCredential !=null){
+                          Get.offAll(() => LoginView());
+                        }
                       }),
                       20.heightBox,
                       Row(

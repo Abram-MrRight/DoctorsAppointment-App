@@ -1,3 +1,5 @@
+import 'package:doctors_appt/consts/consts.dart';
+
 class AppStrings{
   static String appname = "doctorsAppointment",
      bestDocapp = "Best Doctor\n Appointment App",
@@ -14,6 +16,22 @@ class AppStrings{
      forgetPassword = "Forget Password?",
      login = "Login",
      signup = "Signup",
+      welcome = "Welcome",
+      search ="Search doctor",
      alreadyHaveAccount = "Already have ancount?",
-     dontHaveAccount = "Don't have an account?";
+     dontHaveAccount = "Don't have an account?",
+      body = "Body",
+      ear = "Ear",
+      liver = "Liver",
+      legs = "Legs",
+      heart = "Heart",
+      kidney = "Kidney",
+     category ="Category",
+     doctor = "Doctor Login",
+     settings = "Settings",
+     changePassword = "Change Password",
+     termsConditions = "Terms & Conditions",
+    signOut = "Sign Out"
+  ;
 }
+

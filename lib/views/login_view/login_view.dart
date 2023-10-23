@@ -1,8 +1,10 @@
 import 'package:doctors_appt/consts/consts.dart';
 import 'package:doctors_appt/consts/images.dart';
 import 'package:doctors_appt/consts/strings.dart';
+import 'package:doctors_appt/controllers/auth_controller.dart';
 import 'package:doctors_appt/res/components/custom_button.dart';
 import 'package:doctors_appt/res/components/custom_textfield.dart';
+import 'package:doctors_appt/views/home_view/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -10,11 +12,20 @@ import 'package:get/get.dart';
 
 import '../signup_view/signup_view.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({Key? key});
 
   @override
+  State<LoginView> createState() => _LoginViewState();
+
+}
+
+class _LoginViewState extends State<LoginView> {
+  @override
   Widget build(BuildContext context) {
+    var controller = Get.put(AuthController());
+
+
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.only(top: 40),
@@ -39,16 +50,24 @@ class LoginView extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      CustomTextField(hint: AppStrings.email),
+                      CustomTextField(hint: AppStrings.email, textController: controller.emailController,),
                       10.heightBox,
-                      CustomTextField(hint: AppStrings.password),
+                      CustomTextField(hint: AppStrings.password, textController: controller.passwordController,),
                       20.heightBox,
                       Align(
                         alignment: Alignment.centerRight,
                         child: AppStyles.normal(title: AppStrings.forgetPassword),
                       ),
                       20.heightBox,
-                      CustomButton(buttonText: AppStrings.login, onTap: () {}),
+                      CustomButton(
+                          buttonText: AppStrings.login,
+
+                          onTap: () async{
+                           await controller.loginUser();
+                           if(controller.userCredential != null){
+                             Get.to(() => const Home());
+                           }
+                      }),
                       20.heightBox,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -79,3 +98,7 @@ class LoginView extends StatelessWidget {
     );
   }
 }
+
+
+
+
