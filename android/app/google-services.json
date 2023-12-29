@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "181642646846",
+    "project_id": "doctorsappointment-45fe7",
+    "storage_bucket": "doctorsappointment-45fe7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181642646846:android:d53b566a89aab4f5a7486f",
+        "android_client_info": {
+          "package_name": "com.abraham.doctors_appt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6dNEDmHUFJqCN6ziX317a0GvZRQ9LL6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
