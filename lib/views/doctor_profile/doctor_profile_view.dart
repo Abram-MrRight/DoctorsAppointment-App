@@ -9,7 +9,7 @@ import '../book_appointment/book_appointment.dart';
 
 class DoctorProfile extends StatelessWidget {
   final DocumentSnapshot doc;
-  const DoctorProfile({super.key, required this.doc});
+   DoctorProfile({super.key, required this.doc});
 
 
 
