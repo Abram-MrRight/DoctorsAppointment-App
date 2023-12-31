@@ -13,11 +13,19 @@ import 'package:get/get.dart';
 import '../home_view/home.dart';
 import '../login_view/login_view.dart';
 
-class SignupView extends StatelessWidget {
+class SignupView extends StatefulWidget {
   const SignupView({Key? key});
 
   @override
+  State<SignupView> createState() => _SignupViewState();
+}
+
+class _SignupViewState extends State<SignupView> {
+  var isDoctor = false;
+
+  @override
   Widget build(BuildContext context) {
+
     var controller = Get.put(AuthController());
     return Scaffold(
       body: Container(
@@ -44,19 +52,52 @@ class SignupView extends StatelessWidget {
                     children: [
 
                       CustomTextField(hint: AppStrings.fullName, textController: controller.fulnameController,),
+                      10.heightBox,
                       CustomTextField(hint: AppStrings.email, textController: controller.emailController,),
                       10.heightBox,
                       CustomTextField(hint: AppStrings.password, textController: controller.passwordController,),
                       20.heightBox,
+
+
+                      Visibility(
+                        visible: isDoctor,
+                        child: Column(
+                          children: [
+                            CustomTextField(hint: "About", textController: controller.aboutController,),
+                            10.heightBox,
+                            CustomTextField(hint: "Address", textController: controller.addressController,),
+                            10.heightBox,
+                            CustomTextField(hint: "Category", textController: controller.categoryController,),
+                            10.heightBox,
+                            CustomTextField(hint: "Phone Number", textController: controller.phoneController,),
+                            10.heightBox,
+                            CustomTextField(hint: "Rating", textController: controller.ratingController,),
+                            10.heightBox,
+                            CustomTextField(hint: "Services", textController: controller.serviceController,),
+                            10.heightBox,
+                            CustomTextField(hint: "Timing", textController: controller.timingController,),
+                            10.heightBox,
+                          ],
+                        ),
+                      ),
+                      
+                      //switch button for doctor option
+                      SwitchListTile(value: isDoctor, onChanged: (newValue){
+                        setState(() {
+                          isDoctor = newValue;
+                        });
+                      }, title: "Signup as a doctor".text.make(),
+                      ),
                       CustomButton(
                           buttonText: AppStrings.signup,
                           onTap: () async{
-                         await controller.signupUser();
+                         await controller.signupUser(isDoctor);
                         if(controller.userCredential !=null){
                           Get.offAll(() => LoginView());
                         }
                       }),
                       20.heightBox,
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

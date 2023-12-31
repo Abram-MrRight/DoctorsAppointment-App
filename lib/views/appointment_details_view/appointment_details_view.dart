@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../consts/consts.dart';
-import '../../res/components/custom_textfield.dart';
 
 class AppointmentDetailsView extends StatelessWidget {
   final DocumentSnapshot doc;
@@ -13,7 +12,7 @@ class AppointmentDetailsView extends StatelessWidget {
     return  Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: AppStyles.bold(title: doc['appWithName'], color: AppColors.whiteColor, size: AppSizes.size16.toDouble()),
+        title: AppStyles.bold(title: "Doctor Name", color: AppColors.whiteColor, size: AppSizes.size16.toDouble()),
       ),
       body:  Padding(
         padding: const EdgeInsets.all(10.0),
@@ -31,7 +30,7 @@ class AppointmentDetailsView extends StatelessWidget {
             20.heightBox,
             AppStyles.bold(title: "Mobile Number:"),
             5.heightBox,
-            AppStyles.normal(title: doc['appNumber']),
+            AppStyles.normal(title: doc['appMobile']),
             10.heightBox,
             AppStyles.bold(title: "Full Name"),
             5.heightBox,

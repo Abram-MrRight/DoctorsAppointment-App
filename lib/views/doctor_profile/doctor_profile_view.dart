@@ -4,12 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctors_appt/res/components/custom_button.dart';
 import 'package:get/get.dart';
 import '../../consts/consts.dart';
-import '../../controllers/appointment_controller.dart';
 import '../book_appointment/book_appointment.dart';
 
 class DoctorProfile extends StatelessWidget {
   final DocumentSnapshot doc;
-   DoctorProfile({super.key, required this.doc});
+   const DoctorProfile({super.key, required this.doc});
 
 
 
@@ -122,7 +121,8 @@ class DoctorProfile extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(10.0),
         child: CustomButton(buttonText: "Book an appointment", onTap: (){
-          Get.to(() =>  BookAppointment(docID: doc['docID'],docName: doc['docName'],));
+          Get.to(() =>  BookAppointment(docId: doc['docID'],docName: doc['docName'],
+          ));
 
         },),
       ),

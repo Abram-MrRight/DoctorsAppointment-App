@@ -1,19 +1,20 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doctors_appt/controllers/appointment_controller.dart';
 import 'package:doctors_appt/views/appointment_details_view/appointment_details_view.dart';
 
 import '../../consts/consts.dart';
 import 'package:flutter/material.dart'; // Import Material for Scaffold
 import 'package:get/get.dart';
 
+import '../../controllers/myAppointment_controller.dart';
+
 class AppointmentView extends StatelessWidget {
   const AppointmentView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.put(AppointmentController());
+    var controller = Get.put(MyAppointmentController());
 
     return Scaffold(
       appBar: AppBar(
@@ -47,7 +48,7 @@ class AppointmentView extends StatelessWidget {
                     leading: CircleAvatar(
                       child: Image.asset(Appassets.imgSignup),
                     ),
-                    title: AppStyles.bold(title: data[index]['appWithName']),
+                    title: AppStyles.bold(title:"Doctor Name"),
                     subtitle: AppStyles.normal(
                       title: "${data[index]['appDay']} - ${data[index]['appTime']}",
                       color: AppColors.textColor.withOpacity(0.5),
