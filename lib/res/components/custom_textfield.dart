@@ -15,12 +15,14 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
+  bool _obscurePassword = true;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.textController,
       cursorColor: AppColors.blueColor,
-      obscureText: widget.hint == AppStrings.password ? true : false,
+      obscureText: widget.hint == AppStrings.password ? _obscurePassword : false,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         if (widget.hint == AppStrings.email) {
@@ -53,6 +55,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
         hintStyle: TextStyle(
           color: widget.textColor,
         ),
+        suffixIcon: widget.hint == AppStrings.password ? IconButton(
+          icon: Icon(
+            _obscurePassword ? Icons.visibility_off : Icons.visibility,
+          ),
+          onPressed: () {
+            setState(() {
+              _obscurePassword = !_obscurePassword;
+            });
+          },
+        ) : null,
       ),
     );
   }
