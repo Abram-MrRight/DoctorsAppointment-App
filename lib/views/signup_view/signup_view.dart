@@ -54,6 +54,8 @@ class _SignupViewState extends State<SignupView> {
                       CustomTextField(hint: AppStrings.fullName, textController: controller.fullNameController,),
                       CustomTextField(hint: AppStrings.fullName, textController: controller.fullNameController,),
                       10.heightBox,
+                      CustomTextField(hint: AppStrings.fullName, textController: controller.fullNameController),
+                      10.heightBox,
                       CustomTextField(hint: AppStrings.email, textController: controller.emailController,),
                       10.heightBox,
                       CustomTextField(hint: AppStrings.password, textController: controller.passwordController,),
