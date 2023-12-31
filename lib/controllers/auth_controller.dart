@@ -12,12 +12,12 @@ class AuthController extends GetxController{
   final fullNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController= TextEditingController();
-  //final confirmPassword = TextEditingController();
+  final confirmPassword = TextEditingController();
 
   //as a doctor
   final aboutController = TextEditingController();
   final addressController = TextEditingController();
-  final categoryController = TextEditingController();
+  String categoryController = '';
   final ratingController = TextEditingController();
   final serviceController = TextEditingController();
   final phoneController = TextEditingController();
@@ -47,7 +47,7 @@ class AuthController extends GetxController{
   signupUser() async{
   userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
 
-  await storeUserData(userCredential!.user!.uid, fulnameController.text, emailController.text);
+  await storeUserData(userCredential!.user!.uid, fullNameController.text, emailController.text);
 }
 
 storeUserData(String uid, String fullname, String email) async{

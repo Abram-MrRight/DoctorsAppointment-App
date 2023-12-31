@@ -1,14 +1,13 @@
-import 'package:doctors_appt/consts/colors.dart';
 import 'package:doctors_appt/consts/consts.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextEditingController? textController;
   final String hint;
   final Color textColor;
   final Color borderColor;
-  const CustomTextField({super.key, this.textController, required this.hint,  this.textColor = Colors.black,  this.borderColor = Colors.black});
+  // final GlobalKey<FormState>? formKey;
+  final TextEditingController? refTextController;
+  const CustomTextField({super.key, this.textController, required this.hint,  this.textColor = Colors.black,  this.borderColor = Colors.black, this.refTextController});
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -16,13 +15,32 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   bool _obscurePassword = true;
+  late FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.textController,
+      focusNode: _focusNode,
       cursorColor: AppColors.blueColor,
-      obscureText: widget.hint == AppStrings.password ? _obscurePassword : false,
+      keyboardType: widget.hint == "Phone Number" ? TextInputType.phone :
+      widget.hint == "Rating" ? const TextInputType.numberWithOptions(
+        signed: false,
+        decimal: false
+      ) : null,
+      obscureText: widget.hint == AppStrings.password || widget.hint == "Confirm Password" ? _obscurePassword : false,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         if (widget.hint == AppStrings.email) {
@@ -32,7 +50,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             return "Invalid email format";
           }
         }
-        else if (widget.hint == AppStrings.password) {
+        if (widget.hint == AppStrings.password || widget.hint == "Confirm Password") {
           if (value!.isEmpty) {
             return "Password field cannot be empty";
           }
@@ -40,9 +58,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
             return "Passwords must be at least 6 characters";
           }
         }
+        if (widget.hint == "Confirm Password") {
+          if (value != widget.refTextController!.text) {
+            return "Passwords do not match";
+          }
+        }
         return null;
       },
-      decoration:  InputDecoration(
+      onEditingComplete: () {
+        // switch to next form field
+        _focusNode.nextFocus();
+      },
+      decoration: InputDecoration(
         isDense: true,
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
@@ -55,7 +82,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         hintStyle: TextStyle(
           color: widget.textColor,
         ),
-        suffixIcon: widget.hint == AppStrings.password ? IconButton(
+        suffixIcon: widget.hint == AppStrings.password || widget.hint == "Confirm Password" ? IconButton(
           icon: Icon(
             _obscurePassword ? Icons.visibility_off : Icons.visibility,
           ),
