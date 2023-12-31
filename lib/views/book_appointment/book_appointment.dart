@@ -35,7 +35,7 @@ class BookAppointment extends StatelessWidget {
             20.heightBox,
             AppStyles.bold(title: "Mobile Number:"),
             5.heightBox,
-             CustomTextField(hint: "Enter your mobile number", textController: controller.appointmentTimeController,),
+             CustomTextField(hint: "Enter your mobile number", textController: controller.appointmentMobileController,),
             10.heightBox,
             AppStyles.bold(title: "Full Name"),
             5.heightBox,
