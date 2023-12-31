@@ -9,7 +9,7 @@ import '../consts/consts.dart';
 
 class AuthController extends GetxController{
 
-  final fulnameController = TextEditingController();
+  final fullNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController= TextEditingController();
   //final confirmPassword = TextEditingController();
@@ -44,32 +44,16 @@ class AuthController extends GetxController{
     userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
   }
 
-  signupUser(bool isDoctor) async{
+  signupUser() async{
   userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
 
-  await storeUserData(userCredential!.user!.uid, fulnameController.text, emailController.text, isDoctor);
+  await storeUserData(userCredential!.user!.uid, fulnameController.text, emailController.text);
 }
 
-storeUserData(String uid, String fullname, String email, bool isDoctor) async{
-  var store = FirebaseFirestore.instance.collection(isDoctor ? 'doctors': 'users').doc(uid);
-  if(isDoctor){
-    await store.set({
-      'docAbout': aboutController.text,
-      'docAddress': addressController.text,
-      'docCategory': categoryController.text,
-      'docName': fulnameController.text,
-      'docPhone': phoneController.text,
-      'docServices': serviceController.text,
-      'docTiming': timingController.text,
-      'docId': FirebaseAuth.instance.currentUser?.uid,
-      'docRating': 1,
-      'docEmail': email,
-
-    });
-  }else{
-    await store.set({'fullname': fullname, 'email': email});
-  }
-  }
+storeUserData(String uid, String fullname, String email) async{
+  var store = FirebaseFirestore.instance.collection('users').doc(uid);
+  await store.set({'fullname': fullname, 'email': email});
+}
 
 signOut() async{
     await FirebaseAuth.instance.signOut();

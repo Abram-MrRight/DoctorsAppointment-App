@@ -51,7 +51,8 @@ class _SignupViewState extends State<SignupView> {
                   child: Column(
                     children: [
 
-                      CustomTextField(hint: AppStrings.fullName, textController: controller.fulnameController,),
+                      CustomTextField(hint: AppStrings.fullName, textController: controller.fullNameController,),
+                      CustomTextField(hint: AppStrings.fullName, textController: controller.fullNameController,),
                       10.heightBox,
                       CustomTextField(hint: AppStrings.email, textController: controller.emailController,),
                       10.heightBox,
@@ -80,7 +81,7 @@ class _SignupViewState extends State<SignupView> {
                           ],
                         ),
                       ),
-                      
+
                       //switch button for doctor option
                       SwitchListTile(value: isDoctor, onChanged: (newValue){
                         setState(() {

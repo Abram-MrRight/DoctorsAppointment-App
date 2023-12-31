@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctors_appt/consts/lists.dart';
 import 'package:doctors_appt/controllers/home_controller.dart';
 import 'package:doctors_appt/res/components/custom_textfield.dart';
-import 'package:doctors_appt/views/category/category_view.dart';
 import 'package:doctors_appt/views/category_details/category_details.dart';
 import 'package:doctors_appt/views/search_view/search_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../../consts/consts.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +20,7 @@ class HomeView extends StatelessWidget {
         appBar: AppBar(
         elevation: 0.0,
         title: AppStyles.bold(
-        title: "Welcome",
+        title: "Welcome ${FirebaseAuth.instance.currentUser?.email}",
         size: AppSizes.size18.toDouble(),
     color: AppColors.whiteColor,
     ),

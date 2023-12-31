@@ -1,7 +1,5 @@
 import 'package:doctors_appt/consts/lists.dart';
 import 'package:doctors_appt/controllers/auth_controller.dart';
-import 'package:doctors_appt/controllers/userController/userController.dart';
-import 'package:doctors_appt/views/login_view/login.dart';
 import 'package:doctors_appt/views/login_view/login_view.dart';
 import 'package:get/get.dart';
 import '../../consts/consts.dart';

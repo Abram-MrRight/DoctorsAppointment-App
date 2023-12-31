@@ -11,8 +11,10 @@ class Appassets{
       ic_kidney = "assets/icons/ic_kidney.png",
       imLogin = "assets/images/im_login.jpg",
       imgSignup = "assets/images/im_signup.jpg",
-     imgSplashBg = "assets/images/imSplash_bg.jpg";
-
-
-
+      imgSplashBg = "assets/images/imSplash_bg.jpg",
+      answers = "assets/images/answers.png",
+      care = "assets/images/care.png",
+      specialists = "assets/images/specialists.png",
+      ic_splash = "assets/icons/splash_icon.svg"
+      ;
 }

@@ -101,7 +101,7 @@ class _LoginViewState extends State<LoginView> {
                             },
                             child: Text(
                               AppStrings.signup,
-                              style: TextStyle(color: Colors.blue), // Set the text color directly here
+                              style: const TextStyle(color: Colors.blue), // Set the text color directly here
                             ),
                           ),
                         ],
