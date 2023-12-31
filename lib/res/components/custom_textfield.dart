@@ -1,4 +1,5 @@
 import 'package:doctors_appt/consts/colors.dart';
+import 'package:doctors_appt/consts/consts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,26 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return TextFormField(
       controller: widget.textController,
       cursorColor: AppColors.blueColor,
+      obscureText: widget.hint == AppStrings.password ? true : false,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) {
+        if (widget.hint == AppStrings.email) {
+          if (value!.isEmpty) {
+            return "Email field cannot be empty";
+          } else if (!RegExp(r'[a-zA-Z]\w+@[a-zA-Z]+\.[a-zA-Z]{2,7}').hasMatch(value)) {
+            return "Invalid email format";
+          }
+        }
+        else if (widget.hint == AppStrings.password) {
+          if (value!.isEmpty) {
+            return "Password field cannot be empty";
+          }
+          else if (value.length < 6) {
+            return "Passwords must be at least 6 characters";
+          }
+        }
+        return null;
+      },
       decoration:  InputDecoration(
         isDense: true,
         focusedBorder: OutlineInputBorder(
