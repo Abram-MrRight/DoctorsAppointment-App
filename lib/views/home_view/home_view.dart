@@ -215,7 +215,7 @@ class HomeView extends StatelessWidget {
                       child: AppStyles.bold(
                         title: "View All",
                         color: AppColors.blueTheme,
-                        size: AppSizes.size16.toDouble()
+                        size: AppSizes.size14.toDouble()
                       ),
                     ),
                   ),
