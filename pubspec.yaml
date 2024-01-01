@@ -48,7 +48,7 @@ dependencies:
   flutter_svg: ^2.0.9
   smooth_page_indicator: ^1.1.0
   get: ^4.6.5
-  url_launcher: ^6.2.2
+  url_launcher: '6.1.14'
 
 dev_dependencies:
   flutter_test:
