@@ -7,6 +7,7 @@ import '../../consts/consts.dart';
 import 'package:flutter/material.dart'; // Import Material for Scaffold
 import 'package:get/get.dart';
 
+import '../../controllers/auth_controller.dart';
 import '../../controllers/myAppointment_controller.dart';
 
 class AppointmentView extends StatelessWidget {
@@ -23,6 +24,14 @@ class AppointmentView extends StatelessWidget {
           color: AppColors.whiteColor,
           size: AppSizes.size14.toDouble(),
         ),
+        actions: [
+          IconButton(
+              onPressed: () async{
+             await   AuthController().signOut();
+          },
+              icon: const Icon(Icons.logout_rounded)
+          )
+        ],
       ),
       body: FutureBuilder<QuerySnapshot>(
         future: controller.getAppointments(),
