@@ -15,6 +15,8 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(HomeController());
+    // placeholder data to test the doctor cards
+    late dynamic docData;
 
     return Scaffold(
       appBar: AppBar(
@@ -110,6 +112,8 @@ class HomeView extends StatelessWidget {
                           );
                         } else {
                           var data = snapshot.data?.docs;
+                          // to be deleted later
+                          docData = data;
                           return SizedBox(
                             height: 200,
                             child: ListView.builder(
@@ -219,22 +223,943 @@ class HomeView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: List.generate(
-                  //       4,
-                  //           (index) => Container(
-                  //             padding: const EdgeInsets.all(12),
-                  //             color: AppColors.blueTheme,
-                  //             child: Column(
-                  //               children: [
-                  //                 Image.asset(Appassets.ic_body, width: 25, color: AppColors.whiteColor,),
-                  //                 5.heightBox,
-                  //                 AppStyles.normal(title: "Lab Test", color: AppColors.whiteColor),
-                  //               ],
-                  //             ),
-                  //           ))
-                  // ),
+                  10.heightBox,
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(
+                          () => DoctorProfile(doc: docData[0])
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 156,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: AppColors.blueTheme,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: const Offset(0, 3),
+                          ),
+                        ]
+                      ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Stack(
+                              alignment: Alignment.topRight,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 36,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(36),
+                                        child: Image.asset(
+                                            Appassets.imLogin
+                                        ),
+                                      ),
+                                    ),
+                                    20.widthBox,
+                                    const Expanded(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Dr. Anisha Patil',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 24,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Dr. Anisha Patil',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          Text(
+                                            '8128 Gloss Rd',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                CircleAvatar(
+                                  child: IconButton(
+                                    onPressed: () {
+
+                                    },
+                                    icon: const Icon(
+                                      Icons.favorite_outline,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                )
+                              ]
+                            ),
+                          ),
+                          10.heightBox,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Rating',
+                                    style: TextStyle(
+                                      color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    '4.5',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Consultation Fees',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    'UGX 4,000',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Experience',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    '14 years',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  10.heightBox,
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(
+                              () => DoctorProfile(doc: docData[0])
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 156,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: AppColors.blueTheme,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: const Offset(0, 3),
+                            ),
+                          ]
+                      ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 36,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(36),
+                                          child: Image.asset(
+                                              Appassets.imLogin
+                                          ),
+                                        ),
+                                      ),
+                                      20.widthBox,
+                                      const Expanded(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Dr. Anisha Patil',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 24,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Dr. Anisha Patil',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              '8128 Gloss Rd',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  CircleAvatar(
+                                    child: IconButton(
+                                      onPressed: () {
+
+                                      },
+                                      icon: const Icon(
+                                        Icons.favorite_outline,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  )
+                                ]
+                            ),
+                          ),
+                          10.heightBox,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Rating',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    '4.5',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Consultation Fees',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    'UGX 4,000',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Experience',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    '14 years',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  10.heightBox,
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(
+                              () => DoctorProfile(doc: docData[0])
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 156,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: AppColors.blueTheme,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: const Offset(0, 3),
+                            ),
+                          ]
+                      ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 36,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(36),
+                                          child: Image.asset(
+                                              Appassets.imLogin
+                                          ),
+                                        ),
+                                      ),
+                                      20.widthBox,
+                                      const Expanded(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Dr. Anisha Patil',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 24,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Dr. Anisha Patil',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              '8128 Gloss Rd',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  CircleAvatar(
+                                    child: IconButton(
+                                      onPressed: () {
+
+                                      },
+                                      icon: const Icon(
+                                        Icons.favorite_outline,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  )
+                                ]
+                            ),
+                          ),
+                          10.heightBox,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Rating',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    '4.5',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Consultation Fees',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    'UGX 4,000',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Experience',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    '14 years',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  10.heightBox,
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(
+                              () => DoctorProfile(doc: docData[0])
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 156,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: AppColors.blueTheme,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: const Offset(0, 3),
+                            ),
+                          ]
+                      ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 36,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(36),
+                                          child: Image.asset(
+                                              Appassets.imLogin
+                                          ),
+                                        ),
+                                      ),
+                                      20.widthBox,
+                                      const Expanded(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Dr. Anisha Patil',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 24,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Dr. Anisha Patil',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              '8128 Gloss Rd',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  CircleAvatar(
+                                    child: IconButton(
+                                      onPressed: () {
+
+                                      },
+                                      icon: const Icon(
+                                        Icons.favorite_outline,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  )
+                                ]
+                            ),
+                          ),
+                          10.heightBox,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Rating',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    '4.5',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Consultation Fees',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    'UGX 4,000',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Experience',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    '14 years',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  10.heightBox,
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(
+                              () => DoctorProfile(doc: docData[0])
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 156,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: AppColors.blueTheme,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: const Offset(0, 3),
+                            ),
+                          ]
+                      ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 36,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(36),
+                                          child: Image.asset(
+                                              Appassets.imLogin
+                                          ),
+                                        ),
+                                      ),
+                                      20.widthBox,
+                                      const Expanded(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Dr. Anisha Patil',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 24,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Dr. Anisha Patil',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              '8128 Gloss Rd',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  CircleAvatar(
+                                    child: IconButton(
+                                      onPressed: () {
+
+                                      },
+                                      icon: const Icon(
+                                        Icons.favorite_outline,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  )
+                                ]
+                            ),
+                          ),
+                          10.heightBox,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Rating',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    '4.5',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Consultation Fees',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    'UGX 4,000',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Experience',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    '14 years',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  10.heightBox,
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(
+                              () => DoctorProfile(doc: docData[0])
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 156,
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: AppColors.blueTheme,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: const Offset(0, 3),
+                            ),
+                          ]
+                      ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 36,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(36),
+                                          child: Image.asset(
+                                              Appassets.imLogin
+                                          ),
+                                        ),
+                                      ),
+                                      20.widthBox,
+                                      const Expanded(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Dr. Anisha Patil',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 24,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              'Dr. Anisha Patil',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            Text(
+                                              '8128 Gloss Rd',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  CircleAvatar(
+                                    child: IconButton(
+                                      onPressed: () {
+
+                                      },
+                                      icon: const Icon(
+                                        Icons.favorite_outline,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  )
+                                ]
+                            ),
+                          ),
+                          10.heightBox,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Rating',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    '4.5',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Consultation Fees',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    'UGX 4,000',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Experience',
+                                    style: TextStyle(
+                                        color: Colors.white
+                                    ),
+                                  ),
+                                  4.widthBox,
+                                  const Text(
+                                    '14 years',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  10.heightBox,
                 ],
               ),
             ),
