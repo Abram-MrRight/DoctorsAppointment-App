@@ -18,11 +18,11 @@ class Settings extends StatelessWidget {
 
       ),
       body: Obx(
-              () => controller.isLoading.value
-                  ? Center(
-                child: CircularProgressIndicator(),
-              )
-          :Column(
+            () => controller.isLoading.value
+            ? Center(
+          child: CircularProgressIndicator(),
+        )
+            :Column(
           children: [
             ListTile(
               leading: CircleAvatar(child: Image.asset(Appassets.imgSignup)),
@@ -36,20 +36,20 @@ class Settings extends StatelessWidget {
               children:List.generate(
                   settingsList.length,
                       (index) => ListTile(
-                        onTap: (){
-                          if (index == 2){
-                            AuthController().signOut();
-                            Get.offAll(() => const LoginView());
-                          }
-                        },
-                        leading: Icon(
-                          settingsListIcon[index],
-                          color: AppColors.blueColor,
-                        ),
-                title: AppStyles.bold(
-                  title: settingsList[index],
-                ),
-              )),
+                    onTap: (){
+                      if (index == 2){
+                        AuthController().signOut();
+                        Get.offAll(() => const LoginView());
+                      }
+                    },
+                    leading: Icon(
+                      settingsListIcon[index],
+                      color: AppColors.blueColor,
+                    ),
+                    title: AppStyles.bold(
+                      title: settingsList[index],
+                    ),
+                  )),
             ),
           ],
         ),

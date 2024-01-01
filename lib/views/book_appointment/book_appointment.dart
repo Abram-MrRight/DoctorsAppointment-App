@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 
 class BookAppointment extends StatelessWidget {
   final String docId;
-  final String docName;
-  const BookAppointment({super.key, required this.docId, required this.docName});
+  final String fullname;
+  const BookAppointment({super.key, required this.docId, required this.fullname});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class BookAppointment extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: AppStyles.bold(title: docName, color: AppColors.whiteColor, size: AppSizes.size14.toDouble()),
+        title: AppStyles.bold(title: fullname, color: AppColors.whiteColor, size: AppSizes.size14.toDouble()),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),

@@ -156,7 +156,7 @@ class _SignupViewState extends State<SignupView> {
                             );
                           }
                           else {
-                            await controller.signupUser();
+                            await controller.signupUser(isDoctor);
                             if(controller.userCredential !=null){
                               Get.offAll(() => const LoginView());
                             }

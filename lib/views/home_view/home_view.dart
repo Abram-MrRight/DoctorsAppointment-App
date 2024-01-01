@@ -146,7 +146,7 @@ class HomeView extends StatelessWidget {
                                             ),
                                           ),
                                           5.heightBox,
-                                          AppStyles.bold(title: data![index]['docName']),
+                                          AppStyles.bold(title: data![index]['fullname']),
                                           AppStyles.normal(title: data![index]['docCategory']),
                                         ],
                                       ),

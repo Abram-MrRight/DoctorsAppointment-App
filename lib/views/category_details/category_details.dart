@@ -54,7 +54,7 @@ class Category_details extends StatelessWidget {
     ),
     ),
     5.heightBox,
-    AppStyles.normal(title: data![index]['docName']),
+    AppStyles.normal(title: data![index]['fullname']),
     VxRating(
     selectionColor: AppColors.yellowColor,
     onRatingUpdate: (value){},

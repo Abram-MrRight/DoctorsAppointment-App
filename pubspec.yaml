@@ -47,12 +47,11 @@ dependencies:
   shared_preferences: ^2.2.2
   flutter_svg: ^2.0.9
   smooth_page_indicator: ^1.1.0
-  get: ^4.6.6
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  get: ^4.6.5
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

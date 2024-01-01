@@ -44,7 +44,7 @@ class DoctorProfile extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          AppStyles.bold(title: doc['docName'], color: AppColors.textColor, size: AppSizes.size14.toDouble()),
+                          AppStyles.bold(title: doc['fullname'], color: AppColors.textColor, size: AppSizes.size14.toDouble()),
                           AppStyles.bold(title: doc['docCategory'], color: AppColors.textColor.withOpacity(0.5), size: AppSizes.size12.toDouble()),
                           const Spacer(),
                           VxRating(
@@ -121,7 +121,7 @@ class DoctorProfile extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(10.0),
         child: CustomButton(buttonText: "Book an appointment", onTap: (){
-          Get.to(() =>  BookAppointment(docId: doc['docID'],docName: doc['docName'],
+          Get.to(() =>  BookAppointment(docId: doc['docId'],fullname: doc['fullname'],
           ));
 
         },),
