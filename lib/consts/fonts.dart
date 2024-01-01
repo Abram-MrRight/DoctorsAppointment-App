@@ -9,10 +9,19 @@ class AppSizes{
 }
 
 class AppStyles{
-  static  normal({String? title, Color? color = Colors.black, double? size =14, TextAlign? alignment}){
-   return title!.text.size(size).color(color).make();
+  static normal({
+    String? title,
+    Color? color = Colors.black,
+    double? size = 14,
+    TextAlign? alignment}) {
+      return title!.text.size(size).color(color).make();
   }
-  static  bold({String? title, Color? color = Colors.black, double? size =14, TextAlign alignment = TextAlign.left,  TextStyle? textStyle}){
-  return   title!.text.size(size).color(color).fontFamily(AppFonts.nunitoBold).align(alignment).make();
+  static bold({
+    String? title,
+    Color? color = Colors.black,
+    double? size = 14,
+    TextAlign alignment = TextAlign.left,
+    TextStyle? textStyle}) {
+      return title!.text.size(size).color(color).fontFamily(AppFonts.nunitoBold).align(alignment).make();
   }
 }

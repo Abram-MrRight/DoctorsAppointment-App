@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'consts.dart';
 
 class AppColors{
@@ -9,5 +7,6 @@ class AppColors{
       textColor = Colors.black,
       blueColor = Colors.blue,
       whiteColor =Colors.white,
-      bgDarkColor = const Color(0xffECECEC);
+      bgDarkColor = const Color(0xffECECEC),
+      blueTheme =const Color(0xFF1055E5);
 }

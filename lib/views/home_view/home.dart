@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppColors.whiteColor,
         unselectedItemColor: Colors.white.withOpacity(0.5),
-        backgroundColor: Colors.blue,
+        backgroundColor: AppColors.blueTheme,
         type:BottomNavigationBarType.fixed,
         selectedLabelStyle: TextStyle(
           color: AppColors.whiteColor,

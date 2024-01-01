@@ -15,9 +15,11 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           shape: const StadiumBorder(),
+          backgroundColor: const Color(0xFF1055E5),
+          foregroundColor: Colors.white,
         ),
         onPressed: onTap,
-        child:buttonText.text.make(),
+        child: buttonText.text.make(),
       ),
     );
   }
