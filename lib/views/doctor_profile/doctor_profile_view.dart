@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctors_appt/res/components/custom_button.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../consts/consts.dart';
 import '../book_appointment/book_appointment.dart';
 
@@ -17,6 +18,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
 
   @override
   Widget build(BuildContext context) {
+    var rating = double.parse(widget.doc['docRating'].toString());
+
     return  Scaffold(
       backgroundColor: AppColors.bgDarkColor,
       appBar: AppBar(
@@ -25,354 +28,528 @@ class _DoctorProfileState extends State<DoctorProfile> {
             color: AppColors.whiteColor
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                height: 100,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child:  Row(
-                  children: [
-                    CircleAvatar(
-                      radius :40,
-                      backgroundImage: AssetImage(
-                        Appassets.imgSignup
-                      ),
-                    ),
-                    10.widthBox,
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppStyles.bold(title: widget.doc['fullname'], color: AppColors.textColor, size: AppSizes.size14.toDouble()),
-                          AppStyles.bold(title: widget.doc['docCategory'], color: AppColors.textColor.withOpacity(0.5), size: AppSizes.size12.toDouble()),
-                          const Spacer(),
-                          VxRating(
-                            selectionColor: AppColors.yellowColor,
-                            onRatingUpdate: (value){},
-                            maxRating: 5,
-                            count: 5,
-                            value: double.parse(widget.doc['docRating'].toString()),
-                            stepInt: true,
-                          ),
-
-                        ],
-                      ),
-                    ),
-                    AppStyles.bold(title: "See all review", color: AppColors.blueColor, size: AppSizes.size12.toDouble()),
-
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              height: 256,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    AppColors.blueTheme,
+                    const Color(0xFF0171ff)
                   ],
+                  begin: AlignmentDirectional.bottomCenter,
+                  end: AlignmentDirectional.topCenter
+                ),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(8),
+                  bottomRight: Radius.circular(8)
                 ),
               ),
-              10.heightBox,
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: AppColors.whiteColor,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ListTile(
-                      title: AppStyles.bold(title: "Phone Number", color: AppColors.textColor),
-                      subtitle: AppStyles.normal(title: widget.doc['docPhone'].toString(), color: AppColors.textColor.withOpacity(0.5), size: AppSizes.size14.toDouble()),
-                      trailing: Container(
-                        width: 40,
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: AppColors.yellowColor,
-                        ),
-                        child: Icon(
-                          Icons.phone,
-                          color: AppColors.whiteColor,
+              child:  Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        radius :40,
+                        backgroundImage: AssetImage(
+                          Appassets.imgSignup
                         ),
                       ),
-                    ),
-                    10.heightBox,
-                    AppStyles.bold(title: "About", color: AppColors.textColor, size: AppSizes.size16.toDouble()),
-                    5.heightBox,
-                    AppStyles.normal(
-                      title: widget.doc['docAbout'],
-                      color: AppColors.textColor.withOpacity(0.5),
-                      size: AppSizes.size12.toDouble(),
-                    ),
-                    10.heightBox,
-                    AppStyles.bold(title: "Address", color: AppColors.textColor, size: AppSizes.size16.toDouble()),
-                    5.heightBox,
-                    AppStyles.normal(title: widget.doc['docAddress'], color: AppColors.textColor.withOpacity(0.5), size: AppSizes.size12.toDouble()),
-                    10.heightBox,
-                    AppStyles.bold(title: "Working Time", color: AppColors.textColor, size: AppSizes.size16.toDouble()),
-                    5.heightBox,
-                    AppStyles.normal(title:widget.doc['docTiming'], color: AppColors.textColor.withOpacity(0.5), size: AppSizes.size12.toDouble()),
-                    10.heightBox,
-                    AppStyles.bold(title: "Services", color: AppColors.textColor, size: AppSizes.size16.toDouble()),
-                    5.heightBox,
-                    AppStyles.normal(title: widget.doc['docService'], color: AppColors.textColor.withOpacity(0.5), size: AppSizes.size12.toDouble()),
-
-                  ],
-                ),
-              ),
-              10.heightBox,
-              Align(
-                alignment: AlignmentDirectional.topStart,
-                child: Text(
-                  "Patient Reviews",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: AppColors.blueTheme
-                  ),
-                ),
-              ),
-              10.heightBox,
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)
-                ),
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.white,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CircleAvatar(
-                                backgroundImage: AssetImage(
-                                  Appassets.imLogin
-                                ),
-                              ),
-                              const SizedBox(width: 16,),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'David Park',
-                                      style: TextStyle(
-                                        color: AppColors.blueTheme,
-                                        fontWeight: FontWeight.bold
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.star, color: Colors.orange),
-                                        4.widthBox,
-                                        const Icon(Icons.star, color: Colors.orange),
-                                        4.widthBox,
-                                        const Icon(Icons.star, color: Colors.orange),
-                                        4.widthBox,
-                                        const Icon(Icons.star, color: Colors.grey,),
-                                        4.widthBox,
-                                        const Icon(Icons.star, color: Colors.grey,),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          8.heightBox,
-                          const Text(
-                            'Visited for toothache!',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          8.heightBox,
-                          const Text(
-                            'Lorem ipsum dolor sit amet, consecutoer adisnfs  eleit.' +
-                                'Etiam efficurie ipsum in placetrat molestie. Fsusckmek',
-
-                          ),
-                          8.heightBox,
-                          Text(
-                            'December 28, 2023',
-                            style: TextStyle(
-                              color: Colors.black.withOpacity(.5),
-                              fontSize: 12
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    !viewMoreReviews ? InkWell(
-                      onTap: () {
-                        setState(() {
-                          if (viewMoreReviews) {
-                            viewMoreReviews = false;
-                          }
-                          else {
-                            viewMoreReviews = true;
-                          }
-                        });
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        color: Colors.white,
-                        child: Row(
+                      16.widthBox,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'More Reviews',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: AppColors.blueTheme
-                              ),
+                            AppStyles.bold(
+                                title: widget.doc['fullname'],
+                                color: AppColors.whiteColor,
+                                size: AppSizes.size16.toDouble()
                             ),
-                            const Spacer(),
-                            Icon(
-                              Icons.expand_more,
-                              color: Colors.grey[500],
+                            4.heightBox,
+                            AppStyles.bold(
+                                title: widget.doc['docCategory'],
+                                color: AppColors.whiteColor.withOpacity(0.5),
+                                size: AppSizes.size12.toDouble()
+                            ),
+                            4.heightBox,
+                            AppStyles.bold(
+                                title: widget.doc['docAddress'],
+                                color: AppColors.whiteColor,
+                                size: AppSizes.size16.toDouble()
+                            ),
+                            4.heightBox,
+                            VxRating(
+                              selectionColor: AppColors.yellowColor,
+                              onRatingUpdate: (value){
+                                setState(() {
+                                  rating = double.parse(value);
+                                });
+                              },
+                              maxRating: 5,
+                              count: 5,
+                              value: double.parse(widget.doc['docRating'].toString()),
+                              stepInt: true,
                             ),
                           ],
                         ),
                       ),
-                    ) : Container(),
-                    viewMoreReviews ? Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.white,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    ],
+                  ),
+                  8.heightBox,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
                         children: [
-                          Divider(
-                            color: Colors.grey[300],
-                            thickness: 2,
+                          CircleAvatar(
+                            child: Icon(
+                              Icons.person_add_alt_1_outlined,
+                              color: AppColors.blueTheme,
+                            ),
                           ),
-                          Row(
+                          8.widthBox,
+                          const Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CircleAvatar(
-                                backgroundImage: AssetImage(
-                                    Appassets.imLogin
+                              Text(
+                                '254+',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white
                                 ),
                               ),
-                              const SizedBox(width: 16,),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'David Park',
-                                      style: TextStyle(
-                                          color: AppColors.blueTheme,
-                                          fontWeight: FontWeight.bold
-                                      ),
+                              Text(
+                                'Patients',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.white
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            child: Icon(
+                              Icons.star_rate_outlined,
+                              color: AppColors.blueTheme,
+                            ),
+                          ),
+                          8.widthBox,
+                          const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '8 Years',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white
+                                ),
+                              ),
+                              Text(
+                                'Experience',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.white
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            child: Icon(
+                              Icons.reviews_outlined,
+                              color: AppColors.blueTheme,
+                            ),
+                          ),
+                          8.widthBox,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "$rating",
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white
+                                ),
+                              ),
+                              const Text(
+                                'Reviews',
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.white
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.white
+                      ),
+                      borderRadius: BorderRadius.circular(8)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CircleAvatar(
+                          child: Icon(
+                            Icons.attach_money_outlined,
+                            color: AppColors.blueTheme,
+                          ),
+                        ),
+                        const Text(
+                          "Consultation Fee",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white
+                          ),
+                        ),
+                        const Text(
+                          'UGX 4,000',
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            10.heightBox,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: AppColors.whiteColor,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ListTile(
+                          title: AppStyles.bold(
+                              title: "Phone Number",
+                              color: AppColors.textColor
+                          ),
+                          subtitle: AppStyles.normal(title: widget.doc['docPhone'].toString(), color: AppColors.textColor.withOpacity(0.5), size: AppSizes.size14.toDouble()),
+                          trailing: Container(
+                            width: 40,
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: AppColors.yellowColor,
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                launchUrl(
+                                    Uri.parse("tel:+123456789")
+                                );
+                              },
+                              child: const Icon(
+                                Icons.phone,
+                                color: Colors.white,
+                              ),
+                            )
+                          ),
+                        ),
+                        10.heightBox,
+                        AppStyles.bold(title: "About", color: AppColors.textColor, size: AppSizes.size16.toDouble()),
+                        5.heightBox,
+                        AppStyles.normal(
+                          title: widget.doc['docAbout'],
+                          color: AppColors.textColor.withOpacity(0.5),
+                          size: AppSizes.size12.toDouble(),
+                        ),
+                        10.heightBox,
+                        AppStyles.bold(title: "Services", color: AppColors.textColor, size: AppSizes.size16.toDouble()),
+                        5.heightBox,
+                        AppStyles.normal(title: widget.doc['docService'], color: AppColors.textColor.withOpacity(0.5), size: AppSizes.size12.toDouble()),
+                        10.heightBox,
+                        AppStyles.bold(title: "Working Time", color: AppColors.textColor, size: AppSizes.size16.toDouble()),
+                        5.heightBox,
+                        AppStyles.normal(title:widget.doc['docTiming'], color: AppColors.textColor.withOpacity(0.5), size: AppSizes.size12.toDouble()),
+                      ],
+                    ),
+                  ),
+                  10.heightBox,
+                  Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      "Patient Reviews",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: AppColors.blueTheme
+                      ),
+                    ),
+                  ),
+                  10.heightBox,
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          color: Colors.white,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage: AssetImage(
+                                      Appassets.imLogin
                                     ),
-                                    Row(
+                                  ),
+                                  const SizedBox(width: 16,),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        const Icon(Icons.star, color: Colors.orange),
-                                        4.widthBox,
-                                        const Icon(Icons.star, color: Colors.orange),
-                                        4.widthBox,
-                                        const Icon(Icons.star, color: Colors.orange),
-                                        4.widthBox,
-                                        const Icon(Icons.star, color: Colors.grey,),
-                                        4.widthBox,
-                                        const Icon(Icons.star, color: Colors.grey,),
+                                        Text(
+                                          'David Park',
+                                          style: TextStyle(
+                                            color: AppColors.blueTheme,
+                                            fontWeight: FontWeight.bold
+                                          ),
+                                        ),
+                                        VxRating(
+                                          selectionColor: AppColors.yellowColor,
+                                          onRatingUpdate: (value){
+                                            setState(() {
+                                              rating = double.parse(value);
+                                            });
+                                          },
+                                          maxRating: 5,
+                                          count: 5,
+                                          value: double.parse(widget.doc['docRating'].toString()),
+                                          stepInt: true,
+                                        ),
                                       ],
                                     ),
-                                  ],
+                                  ),
+                                ],
+                              ),
+                              8.heightBox,
+                              const Text(
+                                'Visited for toothache!',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              8.heightBox,
+                              const Text(
+                                'Lorem ipsum dolor sit amet, consecutoer adisnfs  eleit.' +
+                                    'Etiam efficurie ipsum in placetrat molestie. Fsusckmek',
+
+                              ),
+                              8.heightBox,
+                              Text(
+                                'December 28, 2023',
+                                style: TextStyle(
+                                  color: Colors.black.withOpacity(.5),
+                                  fontSize: 12
                                 ),
                               ),
                             ],
                           ),
-                          8.heightBox,
-                          const Text(
-                            'Visited for toothache!',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
+                        ),
+                        !viewMoreReviews ? InkWell(
+                          onTap: () {
+                            setState(() {
+                              if (viewMoreReviews) {
+                                viewMoreReviews = false;
+                              }
+                              else {
+                                viewMoreReviews = true;
+                              }
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            color: Colors.white,
+                            child: Row(
+                              children: [
+                                Text(
+                                  'More Reviews',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: AppColors.blueTheme
+                                  ),
+                                ),
+                                const Spacer(),
+                                Icon(
+                                  Icons.expand_more,
+                                  color: Colors.grey[500],
+                                ),
+                              ],
                             ),
                           ),
-                          8.heightBox,
-                          const Text(
-                            'Lorem ipsum dolor sit amet, consecutoer adisnfs  eleit.' +
-                                'Etiam efficurie ipsum in placetrat molestie. Fsusckmek',
-
-                          ),
-                          8.heightBox,
-                          Text(
-                            'December 28, 2023',
-                            style: TextStyle(
-                                color: Colors.black.withOpacity(.5),
-                                fontSize: 12
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                if (viewMoreReviews) {
-                                  viewMoreReviews = false;
-                                }
-                                else {
-                                  viewMoreReviews = true;
-                                }
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              child: Row(
+                        ) : Container(),
+                        viewMoreReviews ? Container(
+                          padding: const EdgeInsets.all(8),
+                          color: Colors.white,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Divider(
+                                color: Colors.grey[300],
+                                thickness: 2,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Less Reviews',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                        color: AppColors.blueTheme
+                                  CircleAvatar(
+                                    backgroundImage: AssetImage(
+                                        Appassets.imLogin
                                     ),
                                   ),
-                                  const Spacer(),
-                                  Icon(
-                                    Icons.expand_less,
-                                    color: Colors.grey[500],
+                                  const SizedBox(width: 16,),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'David Park',
+                                          style: TextStyle(
+                                              color: AppColors.blueTheme,
+                                              fontWeight: FontWeight.bold
+                                          ),
+                                        ),
+                                        VxRating(
+                                          selectionColor: AppColors.yellowColor,
+                                          onRatingUpdate: (value){
+                                            setState(() {
+                                              rating = double.parse(value);
+                                            });
+                                          },
+                                          maxRating: 5,
+                                          count: 5,
+                                          value: double.parse(widget.doc['docRating'].toString()),
+                                          stepInt: true,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ) : Container(),
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: AppColors.blueTheme
-                        )
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) => const ReviewDialog()
-                          );
-                        },
-                        child: Text(
-                          'Share Your Review',
-                          style: TextStyle(
-                            color: AppColors.blueTheme
+                              8.heightBox,
+                              const Text(
+                                'Visited for toothache!',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              8.heightBox,
+                              const Text(
+                                'Lorem ipsum dolor sit amet, consecutoer adisnfs  eleit.' +
+                                    'Etiam efficurie ipsum in placetrat molestie. Fsusckmek',
+
+                              ),
+                              8.heightBox,
+                              Text(
+                                'December 28, 2023',
+                                style: TextStyle(
+                                    color: Colors.black.withOpacity(.5),
+                                    fontSize: 12
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    if (viewMoreReviews) {
+                                      viewMoreReviews = false;
+                                    }
+                                    else {
+                                      viewMoreReviews = true;
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Less Reviews',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: AppColors.blueTheme
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Icon(
+                                        Icons.expand_less,
+                                        color: Colors.grey[500],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                        ) : Container(),
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: AppColors.blueTheme
+                            )
+                          ),
+                          child: TextButton(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => const ReviewDialog()
+                              );
+                            },
+                            child: Text(
+                              'Share Your Review',
+                              style: TextStyle(
+                                color: AppColors.blueTheme
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: Padding(

@@ -31,10 +31,21 @@ class HomeView extends StatelessWidget {
             VxToast.show(context, msg: 'Drawer open');
           },
         ),
-        title: AppStyles.bold(
-          title: "Welcome ${FirebaseAuth.instance.currentUser?.email}",
-          size: AppSizes.size18.toDouble(),
-          color: AppColors.whiteColor,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppStyles.bold(
+              title: "Hello ${FirebaseAuth.instance.currentUser?.email}",
+              size: AppSizes.size18.toDouble(),
+              color: AppColors.whiteColor,
+            ),
+            const Text(
+              "How are you today?",
+              style: TextStyle(
+                fontSize: 12
+              ),
+            )
+          ],
         ),
         actions: [
           IconButton(
