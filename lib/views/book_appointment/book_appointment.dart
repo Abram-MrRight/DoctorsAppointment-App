@@ -376,6 +376,7 @@ class BookAppointment extends StatelessWidget {
             5.heightBox,
              CustomTextField(hint: "Enter your message",
                textController: controller.appointmentMessageController,),
+            24.heightBox
           ],
           ),
         ),

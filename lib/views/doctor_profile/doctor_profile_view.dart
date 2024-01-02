@@ -720,7 +720,7 @@ class _MyCustomDialog extends State<ReviewDialog> {
                         )
                     ),
                   ),
-                  Container(height: 24,),
+                  8.heightBox,
                   const TextField(
                     style: TextStyle(
 
@@ -734,7 +734,7 @@ class _MyCustomDialog extends State<ReviewDialog> {
                         )
                     ),
                   ),
-                  Container(height: 24,),
+                  8.heightBox
                 ],
               ),
             )
