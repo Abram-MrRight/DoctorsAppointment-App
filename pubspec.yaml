@@ -49,6 +49,9 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   get: ^4.6.5
   url_launcher: '6.1.14'
+  http: ^0.13.4
+  webview_flutter: ^4.4.2
+
 
 dev_dependencies:
   flutter_test:
