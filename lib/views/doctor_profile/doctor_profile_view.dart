@@ -294,6 +294,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                         AppStyles.bold(title: "Working Time", color: AppColors.textColor, size: AppSizes.size16.toDouble()),
                         5.heightBox,
                         AppStyles.normal(title:widget.doc['docTiming'], color: AppColors.textColor.withOpacity(0.5), size: AppSizes.size12.toDouble()),
+                        10.heightBox,
                       ],
                     ),
                   ),
