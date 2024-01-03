@@ -50,6 +50,9 @@ dependencies:
   get: ^4.6.5
   url_launcher: '6.1.14'
   table_calendar: ^3.0.9
+  http: ^0.13.4
+  webview_flutter: ^4.4.2
+
 
 dev_dependencies:
   flutter_test:
