@@ -1,9 +1,6 @@
-import 'package:doctors_appt/consts/colors.dart';
 import 'package:doctors_appt/consts/consts.dart';
 import 'package:doctors_appt/controllers/myAppointment_controller.dart';
-import 'package:doctors_appt/views/appointment_view/appointment_view.dart';
-import 'package:flutter/material.dart';
-
+import 'package:doctors_appt/views/home_view/home.dart';
 import '../../res/components/custom_button.dart';
 
 class BookingSuccess extends StatelessWidget {
@@ -98,7 +95,7 @@ class BookingSuccess extends StatelessWidget {
           buttonText: "Done",
           onTap: () {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const AppointmentView())
+              MaterialPageRoute(builder: (context) => Home(selectedIndex: 1))
             );
           },
         ),

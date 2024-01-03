@@ -1,12 +1,9 @@
 import 'package:doctors_appt/consts/consts.dart';
-import 'package:doctors_appt/controllers/auth_controller.dart';
 import 'package:doctors_appt/views/home_view/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'onboarding_screen.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -39,8 +36,8 @@ class _SplashScreenState extends State<SplashScreen> {
     if(!context.mounted) return;
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => user != null ?
-        const Home() : const OnBoardingScreen()
-        )
+        Home() : const OnBoardingScreen()
+      )
     );
   }
 
@@ -53,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Appassets.ic_splash,
           height: 128,
           width: 128,
-          color: Colors.white,
+          color: AppColors.whiteColor,
         ),
       ),
     );

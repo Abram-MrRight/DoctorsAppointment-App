@@ -15,6 +15,7 @@ class BookAppointment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(MyAppointmentController());
+    var _formKey = GlobalKey<FormState>();
 
     return Scaffold(
       backgroundColor: AppColors.bgDarkColor,
@@ -368,14 +369,22 @@ class BookAppointment extends StatelessWidget {
               ],
             ),
             10.heightBox,
-            AppStyles.bold(title: "Mobile Number:"),
-            5.heightBox,
-             CustomTextField(hint: "Phone Number", textController: controller.appointmentMobileController,),
-            10.heightBox,
-            AppStyles.bold(title: "Message"),
-            5.heightBox,
-             CustomTextField(hint: "Enter your message",
-               textController: controller.appointmentMessageController,),
+            Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppStyles.bold(title: "Mobile Number:"),
+                  5.heightBox,
+                  CustomTextField(hint: "Phone Number", textController: controller.appointmentMobileController,),
+                  10.heightBox,
+                  AppStyles.bold(title: "Message"),
+                  5.heightBox,
+                  CustomTextField(hint: "Enter your message (Optional)",
+                    textController: controller.appointmentMessageController,)
+                ],
+              ),
+            ),
             24.heightBox
           ],
           ),
@@ -389,6 +398,9 @@ class BookAppointment extends StatelessWidget {
             : CustomButton(
           buttonText: "Book an appointment",
           onTap: () async {
+            if (!_formKey.currentState!.validate()) {
+              return;
+            }
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -500,6 +512,7 @@ class _MyCalendarState extends State<MyCalendar> {
   void initState() {
     super.initState();
     _selectedDay = DateTime.now();
+    widget.controller.appointmentDayController.text = _selectedDay.toString().substring(0, 10);
     _focusedDay = DateTime.now();
   }
 

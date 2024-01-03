@@ -63,6 +63,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
             return "Passwords do not match";
           }
         }
+        if (widget.hint == "Phone Number") {
+          if (value!.isEmpty) {
+            return "Phone field is mandatory";
+          }
+        }
         return null;
       },
       onEditingComplete: () {

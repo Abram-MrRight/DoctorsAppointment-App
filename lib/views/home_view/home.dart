@@ -6,14 +6,24 @@ import 'package:doctors_appt/views/settings/settings_View.dart';
 import '../../consts/consts.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  int selectedIndex;
+
+  Home({
+    super.key,
+    this.selectedIndex = 0
+  });
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  int selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   List screenList = [
     const HomeView(),
     const AppointmentView(),
@@ -24,7 +34,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screenList.elementAt(selectedIndex),
+      body: screenList.elementAt(widget.selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppColors.whiteColor,
         unselectedItemColor: Colors.white.withOpacity(0.5),
@@ -37,10 +47,10 @@ class _HomeState extends State<Home> {
         selectedIconTheme: IconThemeData(
           color: AppColors.whiteColor,
         ),
-        currentIndex: selectedIndex,
+        currentIndex: widget.selectedIndex,
         onTap: (value){
         setState(() {
-          selectedIndex = value;
+          widget.selectedIndex = value;
         });
         },
         items: const [
