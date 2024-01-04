@@ -1,3 +1,4 @@
+/*
 import 'package:doctors_appt/views/payment_view/payment_success.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';
@@ -113,3 +114,5 @@ class _MyPaymentPageState extends State<MyPaymentPage> {
     );
   }
 }
+
+*/

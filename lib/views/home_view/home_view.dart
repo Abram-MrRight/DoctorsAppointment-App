@@ -1,6 +1,7 @@
 import 'package:doctors_appt/consts/lists.dart';
 import 'package:doctors_appt/controllers/home_controller.dart';
 import 'package:doctors_appt/views/category_details/category_details.dart';
+import 'package:doctors_appt/views/profile/profile_view.dart';
 import 'package:doctors_appt/views/search_view/search_entry_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -9,8 +10,15 @@ import 'package:get/get.dart';
 
 import '../doctor_profile/doctor_profile_view.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+    bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +28,14 @@ class HomeView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+
         elevation: 0.0,
         leading: IconButton(
           icon: const Icon(
             Icons.account_circle_sharp
           ),
           onPressed: () {
-            // open drawer
-            VxToast.show(context, msg: 'Drawer open');
+            Get.off(() => const ProfileView());
           },
         ),
         title: AppStyles.bold(
@@ -92,6 +100,7 @@ class HomeView extends StatelessWidget {
                   20.heightBox,
                   const HorizontalAdvertCardList(),
                   10.heightBox,
+
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -152,20 +161,27 @@ class HomeView extends StatelessWidget {
                                                 Padding(
                                                   padding: const EdgeInsets.all(8.0),
                                                   child: CircleAvatar(
+                                                    backgroundColor: isFavorite ? Colors.blue : Colors.transparent,
                                                     child: IconButton(
-                                                      icon: const Icon(
+                                                      icon:  Icon(
                                                         Icons.favorite_outline,
-                                                        color: Colors.red,
+                                                        color: isFavorite ? Colors.yellowAccent : Colors.red,
                                                         size: 24.0,
                                                       ),
                                                       onPressed: () {
-                                                        VxToast.show(
-                                                          context,
-                                                          msg: 'Added to Favorites',
-                                                          textColor: Colors.white,
-                                                          bgColor: AppColors.blueTheme,
-                                                          position: VxToastPosition.center
-                                                        );
+                                                        setState((){
+                                                          isFavorite = !isFavorite;
+                                                          if(isFavorite){
+                                                            VxToast.show(
+                                                                context,
+                                                                msg: 'Added to Favorites',
+                                                                textColor: Colors.white,
+                                                                bgColor: AppColors.blueTheme,
+                                                                position: VxToastPosition.center
+                                                            );
+
+                                                          }
+                                                        });
                                                       },
                                                     ),
                                                   ),
@@ -1322,7 +1338,7 @@ class HomeView extends StatelessWidget {
             ),
           ],
         ),
-      )
+      ),
     );
   }
 }

@@ -15,6 +15,7 @@ class ProfileView extends StatelessWidget {
     var controller = Get.put(SettingsController());
 
     return  Drawer(
+
       child: ListView(
         padding: EdgeInsets.zero,
         children:  [
@@ -31,6 +32,7 @@ class ProfileView extends StatelessWidget {
               fit: BoxFit.cover,
               ),
             ),
+
           ),
           ListTile(
             leading: Icon(Icons.file_upload),
@@ -56,17 +58,30 @@ class ProfileView extends StatelessWidget {
             leading: Icon(Icons.payments_outlined),
             title: Text("Payment"),
             onTap: (){
-              Get.to(()=> MyPaymentPage());
+            //  Get.to(()=> MyPaymentPage());
 
             },
           ),
           ListTile(
             leading: Icon(Icons.logout),
             title: Text("SignOut"),
-            onTap: () {
-              AuthController().signOut();
-              Get.offAll(() => const LoginView());
+            onTap: () async{
+              // Show confirmation dialog
+              var confirm = await Get.defaultDialog(
+                title: "Do you want to logout?",
+                content: Container(),
+                textConfirm: "Yes",
+                textCancel: "No",
+                onConfirm: (){
+                  AuthController().signOut();
+                  Get.offAll(() => const LoginView());
+                },
+                onCancel: (){
+
+                }
+              );
             }
+
     )
         ],
       ),
