@@ -1,4 +1,4 @@
-import 'package:doctors_appt/views/payment_view/payment_form.dart';
+import 'package:doctors_appt/views/payment_view/payment_page.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -56,7 +56,8 @@ class ProfileView extends StatelessWidget {
             leading: Icon(Icons.payments_outlined),
             title: Text("Payment"),
             onTap: (){
-              Get.to(()=>const PaymentForm());
+              Get.to(()=> MyPaymentPage());
+
             },
           ),
           ListTile(
