@@ -137,67 +137,68 @@ class HomeView extends StatelessWidget {
                                             child: Stack(
                                               alignment: Alignment.topRight,
                                               children: [
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    Get.to(() => DoctorProfile(doc: data[index]));
-                                                  },
-                                                  child: ClipRRect(
-                                                    borderRadius: const BorderRadius.only(
-                                                      topLeft: Radius.circular(16),
-                                                      topRight: Radius.circular(16)
-                                                    ),
-                                                    child: Image.asset(
-                                                      Appassets.imgSignup,
-                                                      height: double.infinity, // Adjust the height of the image
-                                                      width: double.infinity,
-                                                      fit: BoxFit.cover,
+                                                ClipRRect(
+                                                  borderRadius: const BorderRadius.only(
+                                                    topLeft: Radius.circular(16),
+                                                    topRight: Radius.circular(16)
+                                                  ),
+                                                  child: Image.asset(
+                                                    Appassets.imgSignup,
+                                                    height: double.infinity, // Adjust the height of the image
+                                                    width: double.infinity,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: CircleAvatar(
+                                                    child: IconButton(
+                                                      icon: const Icon(
+                                                        Icons.favorite_outline,
+                                                        color: Colors.red,
+                                                        size: 24.0,
+                                                      ),
+                                                      onPressed: () {
+                                                        VxToast.show(
+                                                          context,
+                                                          msg: 'Added to Favorites',
+                                                          textColor: Colors.white,
+                                                          bgColor: AppColors.blueTheme,
+                                                          position: VxToastPosition.center
+                                                        );
+                                                      },
                                                     ),
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                data![index]['fullname'],
-                                                style: const TextStyle(
-                                                  fontSize: 18.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white
-                                                ),
-                                              ),
-                                              const SizedBox(height: 4.0),
-                                              Text(
-                                                data![index]['docCategory'],
-                                                style: const TextStyle(
-                                                  fontSize: 14.0,
-                                                  color: Colors.white
-                                                ),
-                                              ),
-                                            ],
-
-
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: CircleAvatar(
-                                              child: IconButton(
-                                                icon: const Icon(
-                                                  Icons.favorite_outline,
-                                                  color: Colors.yellowAccent,
-                                                  size: 24.0,
-                                                ),
-                                                onPressed: () {
-                                                  VxToast.show(
-                                                      context,
-                                                      msg: 'Added to Favorites',
-                                                      textColor: Colors.white,
-                                                      bgColor: AppColors.yellowColor,
-                                                      position: VxToastPosition.center
-                                                  );
-                                                },
+                                          GestureDetector(
+                                            onTap: () {
+                                              Get.to(() => DoctorProfile(doc: data[index]));
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    data![index]['fullname'],
+                                                    style: const TextStyle(
+                                                      fontSize: 18.0,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.white
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 4.0),
+                                                  Text(
+                                                    data![index]['docCategory'],
+                                                    style: const TextStyle(
+                                                      fontSize: 14.0,
+                                                      color: Colors.white
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ),

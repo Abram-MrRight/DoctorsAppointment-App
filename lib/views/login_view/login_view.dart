@@ -101,7 +101,7 @@ class _LoginViewState extends State<LoginView> {
                                 Get.to(() => const AppointmentView());
                               }else{
                                 //sign in as a patient
-                                Get.to(() => const Home());
+                                Get.to(() => Home());
                               }
                             }
                           }
