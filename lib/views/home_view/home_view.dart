@@ -3,7 +3,6 @@ import 'package:doctors_appt/controllers/home_controller.dart';
 import 'package:doctors_appt/views/category_details/category_details.dart';
 import 'package:doctors_appt/views/profile/profile_view.dart';
 import 'package:doctors_appt/views/search_view/search_entry_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../consts/consts.dart';
 import 'package:get/get.dart';
@@ -33,7 +32,12 @@ class _HomeViewState extends State<HomeView> {
         elevation: 0.0,
         leading: Builder(
           builder: (context) => IconButton(
-            icon: const Icon(Icons.account_circle_sharp),
+            icon: CircleAvatar(
+              backgroundImage: AssetImage(
+                Appassets.imgDefault
+              ),
+              radius: 16,
+            ),
             onPressed: () {
               Scaffold.of(context).openDrawer();
             },
