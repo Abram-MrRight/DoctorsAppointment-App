@@ -9,5 +9,6 @@ class AppColors{
       whiteColor =Colors.white,
       // bgDarkColor = const Color(0xffECECEC),
       bgDarkColor = const Color(0xffe4e1db),
-      blueTheme =const Color(0xFF1055E5);
+      blueTheme =const Color(0xFF1055E5),
+      dangerColor = Colors.red;
 }

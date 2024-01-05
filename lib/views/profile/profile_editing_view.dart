@@ -27,8 +27,8 @@ class _ProfileEditingViewState extends State<ProfileEditingView> {
   Map<String, TextEditingController> editControllers = {
     'name': TextEditingController(),
     'email': TextEditingController(),
-    'password': TextEditingController(),
     'phone': TextEditingController(),
+    'location': TextEditingController(),
     'bio': TextEditingController(),
     'address': TextEditingController(),
     'category': TextEditingController(),
@@ -42,8 +42,8 @@ class _ProfileEditingViewState extends State<ProfileEditingView> {
   Map<String, FocusNode> focusNodes = {
     'name': FocusNode(),
     'email': FocusNode(),
-    'password': FocusNode(),
     'phone': FocusNode(),
+    'location': FocusNode(),
     'bio': FocusNode(),
     'address': FocusNode(),
     'category': FocusNode(),
@@ -208,9 +208,9 @@ class _ProfileEditingViewState extends State<ProfileEditingView> {
                         }
                       ),
                       const Divider(),
-                      buildTextInputField('Password', 'password goes here', 1, editControllers['password']!, focusNodes['password']!),
-                      const Divider(),
                       buildTextInputField('Phone Number', '123456789', 1, editControllers['phone']!, focusNodes['phone']!, keyboard: TextInputType.phone),
+                      const Divider(),
+                      buildTextInputField('Location', 'Kampala', 1, editControllers['location']!, focusNodes['location']!),
                       const Divider(),
                       Column(
                         children: [
@@ -220,7 +220,7 @@ class _ProfileEditingViewState extends State<ProfileEditingView> {
                           const Divider(),
                           buildTextInputField('Services', 'List of services offered goes here', 5, editControllers['services']!, focusNodes['services']!),
                           const Divider(),
-                          buildTextInputField('Address', 'Health facility address', 1, editControllers['password']!, focusNodes['password']!),
+                          buildTextInputField('Address', 'Health facility address', 1, editControllers['address']!, focusNodes['address']!),
                           const Divider(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,

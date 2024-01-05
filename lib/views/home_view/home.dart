@@ -1,7 +1,7 @@
 import 'package:doctors_appt/views/appointment_view/appointment_view.dart';
 import 'package:doctors_appt/views/category/category_view.dart';
 import 'package:doctors_appt/views/home_view/home_view.dart';
-import 'package:doctors_appt/views/settings/settings_View.dart';
+import 'package:doctors_appt/views/notifications/notifications_view.dart';
 
 import '../../consts/consts.dart';
 
@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
     const HomeView(),
     const AppointmentView(),
     const CategoryView(),
-    const Settings(),
+    const NotificationsView(),
   ];
 
   @override
