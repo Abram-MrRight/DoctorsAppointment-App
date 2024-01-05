@@ -1,5 +1,6 @@
 import 'package:doctors_appt/views/profile/password_changing_view.dart';
 import 'package:doctors_appt/views/profile/profile_editing_view.dart';
+import 'package:doctors_appt/views/profile/settings_view.dart';
 import 'package:get/get.dart';
 import '../../consts/consts.dart';
 import '../../controllers/auth_controller.dart';
@@ -78,7 +79,11 @@ class ProfileView extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text("Settings"),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const SettingsPage())
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.book_online_outlined),
