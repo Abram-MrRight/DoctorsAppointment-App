@@ -1,7 +1,5 @@
-import 'package:doctors_appt/views/payment_view/payment_page.dart';
+import 'package:doctors_appt/views/profile/profile_editing_view.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../consts/consts.dart';
 import '../../controllers/auth_controller.dart';
 import '../../controllers/settings_controller.dart';
@@ -40,9 +38,6 @@ class ProfileView extends StatelessWidget {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight
               ),
-              image: DecorationImage(image:AssetImage(Appassets.ic_splash),
-              fit: BoxFit.cover,
-              ),
             ),
           ),
           ListTile(
@@ -58,9 +53,10 @@ class ProfileView extends StatelessWidget {
               ),
             ),
             onTap: () {
-              // Get.to(
-              //     () => const ProfileEditingView()
-              // );
+              Navigator.of(context).pop();
+              Get.to(
+                  () => const ProfileEditingView()
+              );
             },
           ),
           ListTile(
@@ -87,11 +83,11 @@ class ProfileView extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.logout),
-            title: Text("SignOut"),
+            leading: const Icon(Icons.logout),
+            title: const Text("Sign Out"),
             onTap: () async{
               // Show confirmation dialog
-              var confirm = await Get.defaultDialog(
+              await Get.defaultDialog(
                 title: "Do you want to logout?",
                 content: Container(),
                 textConfirm: "Yes",
