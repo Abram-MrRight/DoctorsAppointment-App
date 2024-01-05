@@ -27,366 +27,366 @@ class BookAppointment extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              width: double.infinity,
-              child:  Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 48,
-                    backgroundImage: AssetImage(
-                        Appassets.imgSignup
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                width: double.infinity,
+                child:  Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 48,
+                      backgroundImage: AssetImage(
+                          Appassets.imgSignup
+                      ),
                     ),
+                    4.heightBox,
+                    AppStyles.bold(
+                        title: fullname,
+                        color: AppColors.textColor,
+                        size: AppSizes.size16.toDouble()
+                    ),
+                    4.heightBox,
+                    AppStyles.bold(
+                        title: 'general',
+                        color: AppColors.textColor.withOpacity(0.5),
+                        size: AppSizes.size12.toDouble()
+                    ),
+                    4.heightBox,
+                    AppStyles.bold(
+                        title: "UGX 4,000",
+                        color: AppColors.textColor,
+                        size: AppSizes.size16.toDouble()
+                    ),
+                  ],
+                ),
+              ),
+              10.heightBox,
+              MyCalendar(controller: controller),
+              10.heightBox,
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Time Slots",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              4.heightBox,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  OutlinedButton(
+                    onPressed: () {
+                      controller.appointmentTimeController.text = "08:00 AM";
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            // Pressed state
+                            return Colors.blue;
+                          } else if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.grey;
+                          }
+                          // Default state
+                          return Colors.white;
+                        },
+                      ),
+                      foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.white;
+                          }
+                          // Default state
+                          return Colors.black;
+                        },
+                      ),
+                    ),
+                    child: const Text("08:00 AM"),
                   ),
-                  4.heightBox,
-                  AppStyles.bold(
-                      title: fullname,
-                      color: AppColors.textColor,
-                      size: AppSizes.size16.toDouble()
+                  OutlinedButton(
+                    onPressed: () {
+                      controller.appointmentTimeController.text = "09:00 AM";
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            // Pressed state
+                            return Colors.blue;
+                          } else if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.grey;
+                          }
+                          // Default state
+                          return Colors.white;
+                        },
+                      ),
+                      foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.white;
+                          }
+                          // Default state
+                          return Colors.black;
+                        },
+                      ),
+                    ),
+                    child: const Text("09:00 AM"),
                   ),
-                  4.heightBox,
-                  AppStyles.bold(
-                      title: 'general',
-                      color: AppColors.textColor.withOpacity(0.5),
-                      size: AppSizes.size12.toDouble()
-                  ),
-                  4.heightBox,
-                  AppStyles.bold(
-                      title: "UGX 4,000",
-                      color: AppColors.textColor,
-                      size: AppSizes.size16.toDouble()
+                  OutlinedButton(
+                    onPressed: () {
+                      controller.appointmentTimeController.text = "10:00 AM";
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            // Pressed state
+                            return Colors.blue;
+                          } else if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.grey;
+                          }
+                          // Default state
+                          return Colors.white;
+                        },
+                      ),
+                      foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.white;
+                          }
+                          // Default state
+                          return Colors.black;
+                        },
+                      ),
+                    ),
+                    child: const Text("10:00 AM"),
                   ),
                 ],
               ),
-            ),
-            10.heightBox,
-            MyCalendar(controller: controller),
-            10.heightBox,
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "Time Slots",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            4.heightBox,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                OutlinedButton(
-                  onPressed: () {
-                    controller.appointmentTimeController.text = "08:00 AM";
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.pressed)) {
-                          // Pressed state
-                          return Colors.blue;
-                        } else if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.grey;
-                        }
-                        // Default state
-                        return Colors.white;
-                      },
-                    ),
-                    foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.white;
-                        }
-                        // Default state
-                        return Colors.black;
-                      },
-                    ),
-                  ),
-                  child: const Text("08:00 AM"),
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    controller.appointmentTimeController.text = "09:00 AM";
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.pressed)) {
-                          // Pressed state
-                          return Colors.blue;
-                        } else if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.grey;
-                        }
-                        // Default state
-                        return Colors.white;
-                      },
-                    ),
-                    foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.white;
-                        }
-                        // Default state
-                        return Colors.black;
-                      },
-                    ),
-                  ),
-                  child: const Text("09:00 AM"),
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    controller.appointmentTimeController.text = "10:00 AM";
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.pressed)) {
-                          // Pressed state
-                          return Colors.blue;
-                        } else if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.grey;
-                        }
-                        // Default state
-                        return Colors.white;
-                      },
-                    ),
-                    foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.white;
-                        }
-                        // Default state
-                        return Colors.black;
-                      },
-                    ),
-                  ),
-                  child: const Text("10:00 AM"),
-                ),
-              ],
-            ),
-            4.heightBox,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                OutlinedButton(
-                  onPressed: () {
-                    controller.appointmentTimeController.text = "12:00 PM";
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.pressed)) {
-                          // Pressed state
-                          return Colors.blue;
-                        } else if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.grey;
-                        }
-                        // Default state
-                        return Colors.white;
-                      },
-                    ),
-                    foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.white;
-                        }
-                        // Default state
-                        return Colors.black;
-                      },
-                    ),
-                  ),
-                  child: const Text("12:00 PM"),
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    controller.appointmentTimeController.text = "01:00 PM";
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.pressed)) {
-                          // Pressed state
-                          return Colors.blue;
-                        } else if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.grey;
-                        }
-                        // Default state
-                        return Colors.white;
-                      },
-                    ),
-                    foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.white;
-                        }
-                        // Default state
-                        return Colors.black;
-                      },
-                    ),
-                  ),
-                  child: const Text("01:00 PM"),
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    controller.appointmentTimeController.text = "02:00 PM";
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.pressed)) {
-                          // Pressed state
-                          return Colors.blue;
-                        } else if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.grey;
-                        }
-                        // Default state
-                        return Colors.white;
-                      },
-                    ),
-                    foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.white;
-                        }
-                        // Default state
-                        return Colors.black;
-                      },
-                    ),
-                  ),
-                  child: const Text("02:00 PM"),
-                ),
-              ],
-            ),
-            4.heightBox,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                OutlinedButton(
-                  onPressed: () {
-                    controller.appointmentTimeController.text = "04:00 PM";
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.pressed)) {
-                          // Pressed state
-                          return Colors.blue;
-                        } else if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.grey;
-                        }
-                        // Default state
-                        return Colors.white;
-                      },
-                    ),
-                    foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.white;
-                        }
-                        // Default state
-                        return Colors.black;
-                      },
-                    ),
-                  ),
-                  child: const Text("03:00 PM"),
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    controller.appointmentTimeController.text = "04:00 PM";
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.pressed)) {
-                          // Pressed state
-                          return Colors.blue;
-                        } else if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.grey;
-                        }
-                        // Default state
-                        return Colors.white;
-                      },
-                    ),
-                    foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.white;
-                        }
-                        // Default state
-                        return Colors.black;
-                      },
-                    ),
-                  ),
-                  child: const Text("04:00 PM"),
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    controller.appointmentTimeController.text = "05:00 PM";
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.pressed)) {
-                          // Pressed state
-                          return Colors.blue;
-                        } else if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.grey;
-                        }
-                        // Default state
-                        return Colors.white;
-                      },
-                    ),
-                    foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.disabled)) {
-                          // Disabled state
-                          return Colors.white;
-                        }
-                        // Default state
-                        return Colors.black;
-                      },
-                    ),
-                  ),
-                  child: const Text("05:00 PM"),
-                ),
-              ],
-            ),
-            10.heightBox,
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              4.heightBox,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  AppStyles.bold(title: "Mobile Number:"),
-                  5.heightBox,
-                  CustomTextField(hint: "Phone Number", textController: controller.appointmentMobileController,),
-                  10.heightBox,
-                  AppStyles.bold(title: "Message"),
-                  5.heightBox,
-                  CustomTextField(hint: "Enter your message (Optional)",
-                    textController: controller.appointmentMessageController,)
+                  OutlinedButton(
+                    onPressed: () {
+                      controller.appointmentTimeController.text = "12:00 PM";
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            // Pressed state
+                            return Colors.blue;
+                          } else if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.grey;
+                          }
+                          // Default state
+                          return Colors.white;
+                        },
+                      ),
+                      foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.white;
+                          }
+                          // Default state
+                          return Colors.black;
+                        },
+                      ),
+                    ),
+                    child: const Text("12:00 PM"),
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      controller.appointmentTimeController.text = "01:00 PM";
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            // Pressed state
+                            return Colors.blue;
+                          } else if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.grey;
+                          }
+                          // Default state
+                          return Colors.white;
+                        },
+                      ),
+                      foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.white;
+                          }
+                          // Default state
+                          return Colors.black;
+                        },
+                      ),
+                    ),
+                    child: const Text("01:00 PM"),
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      controller.appointmentTimeController.text = "02:00 PM";
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            // Pressed state
+                            return Colors.blue;
+                          } else if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.grey;
+                          }
+                          // Default state
+                          return Colors.white;
+                        },
+                      ),
+                      foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.white;
+                          }
+                          // Default state
+                          return Colors.black;
+                        },
+                      ),
+                    ),
+                    child: const Text("02:00 PM"),
+                  ),
                 ],
               ),
-            ),
-            24.heightBox
-          ],
+              4.heightBox,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  OutlinedButton(
+                    onPressed: () {
+                      controller.appointmentTimeController.text = "04:00 PM";
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            // Pressed state
+                            return Colors.blue;
+                          } else if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.grey;
+                          }
+                          // Default state
+                          return Colors.white;
+                        },
+                      ),
+                      foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.white;
+                          }
+                          // Default state
+                          return Colors.black;
+                        },
+                      ),
+                    ),
+                    child: const Text("03:00 PM"),
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      controller.appointmentTimeController.text = "04:00 PM";
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            // Pressed state
+                            return Colors.blue;
+                          } else if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.grey;
+                          }
+                          // Default state
+                          return Colors.white;
+                        },
+                      ),
+                      foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.white;
+                          }
+                          // Default state
+                          return Colors.black;
+                        },
+                      ),
+                    ),
+                    child: const Text("04:00 PM"),
+                  ),
+                  OutlinedButton(
+                    onPressed: () {
+                      controller.appointmentTimeController.text = "05:00 PM";
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            // Pressed state
+                            return Colors.blue;
+                          } else if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.grey;
+                          }
+                          // Default state
+                          return Colors.white;
+                        },
+                      ),
+                      foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.disabled)) {
+                            // Disabled state
+                            return Colors.white;
+                          }
+                          // Default state
+                          return Colors.black;
+                        },
+                      ),
+                    ),
+                    child: const Text("05:00 PM"),
+                  ),
+                ],
+              ),
+              10.heightBox,
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppStyles.bold(title: "Mobile Number:"),
+                    5.heightBox,
+                    CustomTextField(hint: "Phone Number", textController: controller.appointmentMobileController,),
+                    10.heightBox,
+                    AppStyles.bold(title: "Message"),
+                    5.heightBox,
+                    CustomTextField(hint: "Enter your message (Optional)",
+                      textController: controller.appointmentMessageController,)
+                  ],
+                ),
+              ),
+              24.heightBox
+            ],
           ),
         ),
       ),
@@ -427,12 +427,12 @@ class BookAppointment extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Date",
-                                style: TextStyle(
-                                  color: AppColors.blueTheme,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w900,
-                                )
+                                  "Date",
+                                  style: TextStyle(
+                                    color: AppColors.blueTheme,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w900,
+                                  )
                               ),
                               Text(
                                   controller.appointmentDayController.text,
@@ -475,7 +475,7 @@ class BookAppointment extends StatelessWidget {
                           await controller.bookAppointment(context, docId );
                           if (!context.mounted) return;
                           Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => BookingSuccess(controller: controller))
+                              MaterialPageRoute(builder: (context) => BookingSuccess(controller: controller))
                           );
                         },
                       )
