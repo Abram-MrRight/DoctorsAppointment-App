@@ -47,7 +47,7 @@ class _HomeViewState extends State<HomeView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppStyles.bold(
-              title: "Hello ${RegExp(r'\w+').firstMatch(userController.username.value)?.group(0)}",
+              title: "Hello ${userController.username.value}",
               size: AppSizes.size18.toDouble(),
               color: AppColors.whiteColor,
             ),
@@ -245,16 +245,28 @@ class _HomeViewState extends State<HomeView> {
                       }
                   ),
                   10.heightBox,
-                  GestureDetector(
-                    onTap: (){},
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: AppStyles.bold(
-                        title: "View All",
-                        color: AppColors.blueTheme,
-                        size: AppSizes.size14.toDouble()
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Doctors Near You',
+                        style: TextStyle(
+                          color: AppColors.blueTheme,
+                          fontWeight: FontWeight.bold
+                        ),
                       ),
-                    ),
+                      GestureDetector(
+                        onTap: (){},
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: AppStyles.bold(
+                            title: "View All",
+                            color: AppColors.blueTheme,
+                            size: AppSizes.size14.toDouble()
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   10.heightBox,
                   GestureDetector(

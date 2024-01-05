@@ -21,8 +21,39 @@ var iconsTitleList = [
   AppStrings.heart,
   AppStrings.kidney,
   AppStrings.legs,
+];
 
-
+List<String> specialists = [
+  'Allergist/Immunologist',
+  'Anesthesiologist',
+  'Cardiologist',
+  'Dermatologist',
+  'Endocrinologist',
+  'Family Medicine Physician',
+  'Gastroenterologist',
+  'Hematologist',
+  'Infectious Disease Specialist',
+  'Internist',
+  'Nephrologist',
+  'Neurologist',
+  'Obstetrician/Gynecologist (OB/GYN)',
+  'Oncologist',
+  'Ophthalmologist',
+  'Orthopedic Surgeon',
+  'Otolaryngologist (ENT)',
+  'Pediatrician',
+  'Physical Medicine & Rehab Specialist',
+  'Pulmonologist',
+  'Rheumatologist',
+  'Sleep Medicine Specialist',
+  'Sports Medicine Specialist',
+  'Urologist',
+  'Vascular Surgeon',
+  'Psychiatrist',
+  'Radiologist',
+  'Emergency Medicine Physician',
+  'Geriatrician',
+  'Pain Management Specialist',
 ];
 
 var settingsList = [
