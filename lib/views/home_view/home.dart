@@ -57,8 +57,7 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(icon: Icon(Icons.home), label:"Home"),
           BottomNavigationBarItem(icon: Icon(Icons.book), label:"Appointment"),
           BottomNavigationBarItem(icon: Icon(Icons.category), label:"Category"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label:"Settings"),
-
+          BottomNavigationBarItem(icon: Icon(Icons.mail), label:"Notifications"),
         ],
       ),
     );

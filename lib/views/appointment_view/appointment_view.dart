@@ -38,7 +38,7 @@ class _AppointmentViewState extends State<AppointmentView> {
             title: AppStyles.bold(
               title: "Appointments",
               color: AppColors.whiteColor,
-              size: AppSizes.size16.toDouble(),
+              size: AppSizes.size18.toDouble(),
             ),
             actions: [IconButton(
               onPressed: (){},

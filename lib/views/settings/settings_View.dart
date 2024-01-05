@@ -3,9 +3,14 @@ import 'package:get/get.dart';
 import '../../consts/consts.dart';
 import '../../controllers/settings_controller.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
   const Settings({super.key});
 
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(SettingsController());
@@ -13,12 +18,23 @@ class Settings extends StatelessWidget {
       drawer: const ProfileView(),
       appBar: AppBar(
         elevation: 0.0,
-        title: AppStyles.bold(title: AppStrings.settings, color: AppColors.whiteColor),
-
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.account_circle_sharp),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
+        ),
+        title: AppStyles.bold(
+          title: AppStrings.settings,
+          size: AppSizes.size18.toDouble(),
+          color: AppColors.whiteColor
+        ),
       ),
       body: Obx(
             () => controller.isLoading.value
-            ? Center(
+            ? const Center(
           child: CircularProgressIndicator(),
         )
             :Column(
@@ -44,7 +60,7 @@ class Settings extends StatelessWidget {
                 children: List.generate(
                     4,
                         (index) => Container(
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                       color: AppColors.blueColor,
                       child: Column(
                         children: [

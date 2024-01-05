@@ -3,11 +3,10 @@ import 'package:doctors_appt/controllers/home_controller.dart';
 import 'package:doctors_appt/views/category_details/category_details.dart';
 import 'package:doctors_appt/views/profile/profile_view.dart';
 import 'package:doctors_appt/views/search_view/search_entry_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../consts/consts.dart';
 import 'package:get/get.dart';
-
+import '../../controllers/settings_controller.dart';
 import '../doctor_profile/doctor_profile_view.dart';
 
 class HomeView extends StatefulWidget {
@@ -23,25 +22,42 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(HomeController());
+    var userController = Get.put(SettingsController());
     // placeholder data to test the doctor cards
     late dynamic docData;
 
     return Scaffold(
+      drawer: const ProfileView(),
       appBar: AppBar(
-
         elevation: 0.0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.account_circle_sharp
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: CircleAvatar(
+              backgroundImage: AssetImage(
+                Appassets.imgDefault
+              ),
+              radius: 16,
+            ),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
           ),
-          onPressed: () {
-            Get.off(() => const ProfileView());
-          },
         ),
-        title: AppStyles.bold(
-          title: "Welcome ${FirebaseAuth.instance.currentUser?.email}",
-          size: AppSizes.size18.toDouble(),
-          color: AppColors.whiteColor,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppStyles.bold(
+              title: "Hello ${RegExp(r'\w+').firstMatch(userController.username.value)?.group(0)}",
+              size: AppSizes.size18.toDouble(),
+              color: AppColors.whiteColor,
+            ),
+            const Text(
+              "How are you today?",
+              style: TextStyle(
+                fontSize: 12
+              ),
+            )
+          ],
         ),
         actions: [
           IconButton(
@@ -1415,80 +1431,6 @@ class HorizontalAdvertCardList extends StatelessWidget {
           AdvertCard(url: '', imageUrl: 'https://miro.medium.com/v2/resize:fit:828/format:webp/0*yRW7z7HYpj5yezkO'),
           // Add more AdvertCard widgets as needed
         ],
-      ),
-    );
-  }
-}
-
-class CustomCard extends StatelessWidget {
-  final String imageUrl;
-  final String title;
-  final String subtitle;
-
-  const CustomCard({
-    super.key,
-    required this.imageUrl,
-    required this.title,
-    required this.subtitle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        VxToast.show(context, msg: 'Hey hop');
-      },
-      child: Card(
-        margin: const EdgeInsets.all(16.0),
-        child: SizedBox(
-          width: 150,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Image.network(
-                    imageUrl,
-                    height: 150.0, // Adjust the height of the image
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      child: Icon(
-                        Icons.favorite_outline,
-                        color: Colors.red,
-                        size: 24.0,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    Text(
-                      subtitle,
-                      style: const TextStyle(fontSize: 14.0),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
