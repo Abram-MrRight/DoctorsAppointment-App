@@ -1,4 +1,3 @@
-import 'package:doctors_appt/consts/consts.dart';
 
 class AppStrings{
   static String appname = "doctorsAppointment",
@@ -26,12 +25,11 @@ class AppStrings{
       legs = "Legs",
       heart = "Heart",
       kidney = "Kidney",
-     category ="Category",
-     doctor = "Doctor Login",
-     settings = "Settings",
-     changePassword = "Change Password",
-     termsConditions = "Terms & Conditions",
-    signOut = "Sign Out"
-  ;
+   category ="Categories",
+   doctor = "Doctor Login",
+   settings = "Settings",
+   changePassword = "Change Password",
+   termsConditions = "Terms & Conditions",
+    signOut = "Sign Out";
 }
 

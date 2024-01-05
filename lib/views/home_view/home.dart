@@ -1,6 +1,6 @@
 import 'package:doctors_appt/views/appointment_view/appointment_view.dart';
 import 'package:doctors_appt/views/category/category_view.dart';
-import 'package:doctors_appt/views/home_view/home_view.dart';
+import 'package:doctors_appt/views/home_view/doctors_home_view.dart';
 import 'package:doctors_appt/views/notifications/notifications_view.dart';
 
 import '../../consts/consts.dart';
@@ -25,7 +25,8 @@ class _HomeState extends State<Home> {
   }
 
   List screenList = [
-    const HomeView(),
+    // const HomeView(),
+    const DoctorHomePage(),
     const AppointmentView(),
     const CategoryView(),
     const NotificationsView(),
@@ -55,8 +56,8 @@ class _HomeState extends State<Home> {
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label:"Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.book), label:"Appointment"),
-          BottomNavigationBarItem(icon: Icon(Icons.category), label:"Category"),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label:"Appointments"),
+          BottomNavigationBarItem(icon: Icon(Icons.category), label:"Categories"),
           BottomNavigationBarItem(icon: Icon(Icons.mail), label:"Notifications"),
         ],
       ),

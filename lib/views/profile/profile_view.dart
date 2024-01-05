@@ -1,3 +1,5 @@
+import 'package:doctors_appt/views/payment_view/alt_payment_view.dart';
+import 'package:doctors_appt/views/profile/medical_records_view.dart';
 import 'package:doctors_appt/views/profile/password_changing_view.dart';
 import 'package:doctors_appt/views/profile/profile_editing_view.dart';
 import 'package:doctors_appt/views/profile/settings_view.dart';
@@ -92,16 +94,28 @@ class ProfileView extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.book_online_outlined),
-            title: const Text("Medical records"),
-            onTap: () {},
+            leading: Icon(Icons.book_online_outlined, color: AppColors.blueTheme,),
+            title: Text("Medical records", style: TextStyle(
+                color: AppColors.blueTheme,
+                fontWeight: FontWeight.w900
+            )),
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const MedicalRecordsView())
+              );
+            },
           ),
           ListTile(
-            leading: const Icon(Icons.payments_outlined),
-            title: const Text("Payment"),
+            leading: Icon(Icons.payments_outlined, color: AppColors.blueTheme,),
+            title: Text("Payment", style: TextStyle(
+                color: AppColors.blueTheme,
+                fontWeight: FontWeight.w900
+            )),
             onTap: (){
             //  Get.to(()=> MyPaymentPage());
-
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const PaymentPage())
+              );
             },
           ),
           ListTile(

@@ -1,4 +1,5 @@
 import 'package:doctors_appt/consts/consts.dart';
+import 'package:doctors_appt/consts/lists.dart';
 import 'package:doctors_appt/controllers/auth_controller.dart';
 import 'package:doctors_appt/res/components/custom_button.dart';
 import 'package:doctors_appt/res/components/custom_textfield.dart';
@@ -87,12 +88,11 @@ class _SignupViewState extends State<SignupView> {
                               onChanged: (value) {
                                 controller.categoryController = value ?? '';
                               },
-                              items: <String>['Body', 'Ear', 'Heart', 'Kidney',
-                                'Liver', 'Legs']
+                              items: specialists
                                   .map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
-                                  child: Text(value),
+                                  child: Text(value, overflow: TextOverflow.ellipsis),
                                 );
                               }).toList(),
                               hint: const Text("Category", style: TextStyle(color: Colors.black),),

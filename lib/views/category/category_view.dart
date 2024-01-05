@@ -15,9 +15,10 @@ class CategoryView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: AppStyles.bold(title: AppStrings.category, size: AppSizes.size18.toDouble(), color: AppColors.whiteColor)
+        title: AppStyles.bold(title: AppStrings.category, size: AppSizes.size18.toDouble(), color: AppColors.whiteColor),
+        automaticallyImplyLeading: false,
       ),
-      body:Padding(
+      body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: GridView.builder(
           physics: const BouncingScrollPhysics(),
@@ -37,7 +38,7 @@ class CategoryView extends StatelessWidget {
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                    color: AppColors.blueColor,
+                    color: AppColors.blueTheme,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

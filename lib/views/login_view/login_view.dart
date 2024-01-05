@@ -2,10 +2,9 @@ import 'package:doctors_appt/consts/consts.dart';
 import 'package:doctors_appt/controllers/auth_controller.dart';
 import 'package:doctors_appt/res/components/custom_button.dart';
 import 'package:doctors_appt/res/components/custom_textfield.dart';
+import 'package:doctors_appt/views/home_view/doctors_home_view.dart';
 import 'package:doctors_appt/views/home_view/home.dart';
 import 'package:get/get.dart';
-
-import '../appointment_view/appointment_view.dart';
 import '../signup_view/signup_view.dart';
 
 class LoginView extends StatefulWidget {
@@ -135,7 +134,7 @@ class _LoginViewState extends State<LoginView> {
       if(controller.userCredential != null){
         if(isDoctor){
           //sign in as a doctor
-          Get.to(() => const AppointmentView());
+          Get.to(() => const DoctorHomePage());
         }else{
           //sign in as a patient
           Get.to(() => Home());
