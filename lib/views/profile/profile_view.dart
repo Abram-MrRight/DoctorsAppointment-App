@@ -77,8 +77,14 @@ class ProfileView extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text("Settings"),
+            leading: Icon(Icons.settings, color: AppColors.blueTheme),
+            title: Text(
+              "Settings",
+              style: TextStyle(
+                  color: AppColors.blueTheme,
+                  fontWeight: FontWeight.w900
+              )
+            ),
             onTap: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const SettingsPage())
@@ -99,8 +105,13 @@ class ProfileView extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text("Sign Out"),
+            leading: Icon(Icons.logout, color: AppColors.dangerColor),
+            title: Text("Sign Out",
+              style: TextStyle(
+                  color: AppColors.dangerColor,
+                  fontWeight: FontWeight.w900
+              )
+            ),
             onTap: () async{
               // Show confirmation dialog
               await Get.defaultDialog(
