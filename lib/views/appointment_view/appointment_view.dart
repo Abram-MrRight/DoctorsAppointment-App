@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctors_appt/views/appointment_details_view/appointment_details_view.dart';
+import 'package:doctors_appt/views/login_view/login_view.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../consts/consts.dart';
 import 'package:get/get.dart';
 import '../../controllers/auth_controller.dart';
 import '../../controllers/myAppointment_controller.dart';
+import 'package:badges/badges.dart' as badges;
 
 class AppointmentView extends StatefulWidget {
   const AppointmentView({super.key});
@@ -18,6 +21,7 @@ class _AppointmentViewState extends State<AppointmentView> {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(MyAppointmentController());
+    var controller2 = Get.put(AuthController());
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -33,17 +37,32 @@ class _AppointmentViewState extends State<AppointmentView> {
               color: AppColors.whiteColor,
               size: AppSizes.size18.toDouble(),
             ),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                    Icons.notifications_none_outlined
+            actions: [IconButton(
+              onPressed: (){},
+              icon:  badges.Badge(
+                badgeContent: const Text('3', style: TextStyle(color: Colors.white, fontSize: 12),
                 ),
+                position: badges.BadgePosition.topEnd(top: -15, end:  -12),
+                child:  const Icon(IconlyBroken.notification),
               ),
+            ),
               16.widthBox,
               IconButton(
                   onPressed: () async{
-                 await   AuthController().signOut();
+                    // Show confirmation dialog
+                    var confirm = await Get.defaultDialog(
+                      title: "Do you want to logout?",
+                      content: Container(),
+                      textConfirm: "Yes",
+                      textCancel: "No",
+                      onConfirm: (){
+                        AuthController().signOut();
+                        Get.offAll(() => const LoginView());
+                      },
+                      onCancel: (){
+
+                      }
+                    );
               },
                   icon: const Icon(Icons.logout_rounded)
               ),
@@ -127,7 +146,7 @@ class _AppointmentViewState extends State<AppointmentView> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  'Doctor\'s Name',
+                                                 controller2.emailController.value.text,
                                                   style: TextStyle(
                                                       fontWeight: FontWeight.bold,
                                                       fontSize: 16,

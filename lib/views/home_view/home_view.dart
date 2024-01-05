@@ -3,14 +3,22 @@ import 'package:doctors_appt/controllers/home_controller.dart';
 import 'package:doctors_appt/views/category_details/category_details.dart';
 import 'package:doctors_appt/views/profile/profile_view.dart';
 import 'package:doctors_appt/views/search_view/search_entry_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../consts/consts.dart';
 import 'package:get/get.dart';
 import '../../controllers/settings_controller.dart';
 import '../doctor_profile/doctor_profile_view.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+    bool isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +112,7 @@ class HomeView extends StatelessWidget {
                   20.heightBox,
                   const HorizontalAdvertCardList(),
                   10.heightBox,
+
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -140,83 +149,89 @@ class HomeView extends StatelessWidget {
                                     ),
                                     margin: const EdgeInsets.all(8.0),
                                     color: AppColors.blueTheme,
-                                    child: Stack(
-                                      alignment: Alignment.topRight,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            Get.to(() => DoctorProfile(doc: data[index]));
-                                          },
-                                          child: SizedBox(
-                                            width: 140,
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    child: SizedBox(
+                                      width: 140,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                                        children: [
+                                          Expanded(
+                                            child: Stack(
+                                              alignment: Alignment.topRight,
                                               children: [
-                                                Expanded(
-                                                  child: ClipRRect(
-                                                    borderRadius: const BorderRadius.only(
-                                                      topLeft: Radius.circular(16),
-                                                      topRight: Radius.circular(16)
-                                                    ),
-                                                    child: Image.asset(
-                                                      Appassets.imgSignup,
-                                                      height: double.infinity, // Adjust the height of the image
-                                                      width: double.infinity,
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                ClipRRect(
+                                                  borderRadius: const BorderRadius.only(
+                                                    topLeft: Radius.circular(16),
+                                                    topRight: Radius.circular(16)
+                                                  ),
+                                                  child: Image.asset(
+                                                    Appassets.imgSignup,
+                                                    height: double.infinity, // Adjust the height of the image
+                                                    width: double.infinity,
+                                                    fit: BoxFit.cover,
                                                   ),
                                                 ),
                                                 Padding(
                                                   padding: const EdgeInsets.all(8.0),
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                        data![index]['fullname'],
-                                                        style: const TextStyle(
-                                                          fontSize: 18.0,
-                                                          fontWeight: FontWeight.bold,
-                                                          color: Colors.white
-                                                        ),
+                                                  child: CircleAvatar(
+                                                    backgroundColor: isFavorite ? Colors.blue : Colors.transparent,
+                                                    child: IconButton(
+                                                      icon:  Icon(
+                                                        Icons.favorite_outline,
+                                                        color: isFavorite ? Colors.yellowAccent : Colors.red,
+                                                        size: 24.0,
                                                       ),
-                                                      const SizedBox(height: 4.0),
-                                                      Text(
-                                                        data![index]['docCategory'],
-                                                        style: const TextStyle(
-                                                          fontSize: 14.0,
-                                                          color: Colors.white
-                                                        ),
-                                                      ),
-                                                    ],
+                                                      onPressed: () {
+                                                        setState((){
+                                                          isFavorite = !isFavorite;
+                                                          if(isFavorite){
+                                                            VxToast.show(
+                                                                context,
+                                                                msg: 'Added to Favorites',
+                                                                textColor: Colors.white,
+                                                                bgColor: AppColors.blueTheme,
+                                                                position: VxToastPosition.center
+                                                            );
+
+                                                          }
+                                                        });
+                                                      },
+                                                    ),
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: CircleAvatar(
-                                            child: IconButton(
-                                              icon: const Icon(
-                                                Icons.favorite_outline,
-                                                color: Colors.red,
-                                                size: 24.0,
+                                          GestureDetector(
+                                            onTap: () {
+                                              Get.to(() => DoctorProfile(doc: data[index]));
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    data![index]['fullname'],
+                                                    style: const TextStyle(
+                                                      fontSize: 18.0,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.white
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 4.0),
+                                                  Text(
+                                                    data![index]['docCategory'],
+                                                    style: const TextStyle(
+                                                      fontSize: 14.0,
+                                                      color: Colors.white
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              onPressed: () {
-                                                VxToast.show(
-                                                    context,
-                                                    msg: 'Added to Favorites',
-                                                    textColor: Colors.white,
-                                                    bgColor: AppColors.blueTheme,
-                                                    position: VxToastPosition.center
-                                                );
-                                              },
                                             ),
-
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   );
                                 }
@@ -1335,7 +1350,7 @@ class HomeView extends StatelessWidget {
             ),
           ],
         ),
-      )
+      ),
     );
   }
 }

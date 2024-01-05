@@ -1,4 +1,4 @@
-import 'package:doctors_appt/views/payment_view/payment_form.dart';
+import 'package:doctors_appt/views/payment_view/payment_page.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -82,16 +82,30 @@ class ProfileView extends StatelessWidget {
             leading: const Icon(Icons.payments_outlined),
             title: const Text("Payment"),
             onTap: (){
-              Get.to(()=>const PaymentForm());
+            //  Get.to(()=> MyPaymentPage());
+
             },
           ),
           ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text("SignOut"),
-            onTap: () {
-              AuthController().signOut();
-              Get.offAll(() => const LoginView());
+            leading: Icon(Icons.logout),
+            title: Text("SignOut"),
+            onTap: () async{
+              // Show confirmation dialog
+              var confirm = await Get.defaultDialog(
+                title: "Do you want to logout?",
+                content: Container(),
+                textConfirm: "Yes",
+                textCancel: "No",
+                onConfirm: (){
+                  AuthController().signOut();
+                  Get.offAll(() => const LoginView());
+                },
+                onCancel: (){
+
+                }
+              );
             }
+
     )
         ],
       ),
