@@ -1,3 +1,4 @@
+import 'package:doctors_appt/views/profile/password_changing_view.dart';
 import 'package:doctors_appt/views/profile/profile_editing_view.dart';
 import 'package:get/get.dart';
 import '../../consts/consts.dart';
@@ -60,9 +61,19 @@ class ProfileView extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.password),
-            title: const Text("Change Password"),
-            onTap: () {},
+            leading: Icon(Icons.password, color: AppColors.blueTheme),
+            title: Text(
+              "Change Password",
+              style: TextStyle(
+                  color: AppColors.blueTheme,
+                  fontWeight: FontWeight.w900
+              )
+            ),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const PasswordChangeView())
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.settings),
@@ -89,16 +100,40 @@ class ProfileView extends StatelessWidget {
               // Show confirmation dialog
               await Get.defaultDialog(
                 title: "Do you want to logout?",
+                titleStyle: TextStyle(
+                  color: AppColors.blueTheme,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold
+                ),
+                contentPadding: const EdgeInsets.all(16),
                 content: Container(),
-                textConfirm: "Yes",
-                textCancel: "No",
-                onConfirm: (){
-                  AuthController().signOut();
-                  Get.offAll(() => const LoginView());
-                },
-                onCancel: (){
-
-                }
+                actions: [
+                  OutlinedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: AppColors.blueTheme)
+                    ),
+                    child: Text(
+                      "No",
+                      style: TextStyle(
+                        color: AppColors.blueTheme
+                      ),
+                    )
+                  ),
+                  OutlinedButton(
+                      onPressed: () {
+                        AuthController().signOut();
+                        Get.offAll(() => const LoginView());
+                      },
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: AppColors.blueTheme,
+                        foregroundColor: AppColors.whiteColor
+                      ),
+                      child: const Text("Yes")
+                  )
+                ],
               );
             }
 
