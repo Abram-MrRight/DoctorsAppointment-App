@@ -1,12 +1,12 @@
 import 'package:doctors_appt/consts/lists.dart';
 import 'package:doctors_appt/controllers/home_controller.dart';
 import 'package:doctors_appt/views/category_details/category_details.dart';
+import 'package:doctors_appt/views/profile/profile_view.dart';
 import 'package:doctors_appt/views/search_view/search_entry_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../consts/consts.dart';
 import 'package:get/get.dart';
-
+import '../../controllers/settings_controller.dart';
 import '../doctor_profile/doctor_profile_view.dart';
 
 class HomeView extends StatelessWidget {
@@ -15,26 +15,27 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(HomeController());
+    var userController = Get.put(SettingsController());
     // placeholder data to test the doctor cards
     late dynamic docData;
 
     return Scaffold(
+      drawer: const ProfileView(),
       appBar: AppBar(
         elevation: 0.0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.account_circle_sharp
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.account_circle_sharp),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
           ),
-          onPressed: () {
-            // open drawer
-            VxToast.show(context, msg: 'Drawer open');
-          },
         ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppStyles.bold(
-              title: "Hello ${FirebaseAuth.instance.currentUser?.email}",
+              title: "Hello ${RegExp(r'\w+').firstMatch(userController.username.value)?.group(0)}",
               size: AppSizes.size18.toDouble(),
               color: AppColors.whiteColor,
             ),

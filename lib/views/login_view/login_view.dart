@@ -18,7 +18,7 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   var isDoctor = false;
-
+  var focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -84,27 +84,7 @@ class _LoginViewState extends State<LoginView> {
                       CustomButton(
                         buttonText: AppStrings.login,
                         onTap: () async {
-                          if (!_formKey.currentState!.validate()) {
-                              VxToast.show(
-                                  context,
-                                  msg: "Invalid input! Check your entries and try again.",
-                                  bgColor: const Color(0xFF1055E5),
-                                  textColor: Colors.white,
-                                  textSize: 16
-                              );
-                          }
-                          else {
-                            await controller.loginUser();
-                            if(controller.userCredential != null){
-                              if(isDoctor){
-                                //sign in as a doctor
-                                Get.to(() => const AppointmentView());
-                              }else{
-                                //sign in as a patient
-                                Get.to(() => Home());
-                              }
-                            }
-                          }
+                          login(_formKey, controller);
                         }
                       ),
                       20.heightBox,
@@ -138,6 +118,30 @@ class _LoginViewState extends State<LoginView> {
         ),
       ),
     );
+  }
+
+  void login(GlobalKey<FormState> formKey, AuthController controller) async {
+    if (!formKey.currentState!.validate()) {
+      VxToast.show(
+          context,
+          msg: "Invalid input! Check your entries and try again.",
+          bgColor: const Color(0xFF1055E5),
+          textColor: Colors.white,
+          textSize: 16
+      );
+    }
+    else {
+      await controller.loginUser();
+      if(controller.userCredential != null){
+        if(isDoctor){
+          //sign in as a doctor
+          Get.to(() => const AppointmentView());
+        }else{
+          //sign in as a patient
+          Get.to(() => Home());
+        }
+      }
+    }
   }
 }
 

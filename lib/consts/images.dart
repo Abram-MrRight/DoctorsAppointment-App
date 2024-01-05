@@ -15,6 +15,7 @@ class Appassets{
       answers = "assets/images/answers.png",
       care = "assets/images/care.png",
       specialists = "assets/images/specialists.png",
-      ic_splash = "assets/icons/splash_icon.svg"
+      ic_splash = "assets/icons/splash_icon.svg",
+      imgDefault = "assets/images/imgDefault.png"
       ;
 }

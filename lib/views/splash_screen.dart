@@ -1,7 +1,6 @@
 import 'package:doctors_appt/consts/consts.dart';
 import 'package:doctors_appt/views/home_view/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'onboarding_screen.dart';
 
@@ -13,12 +12,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late SharedPreferences preferences;
   late bool firstTimeUser;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     loadApplication();
   }
