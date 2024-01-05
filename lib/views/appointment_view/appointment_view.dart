@@ -50,7 +50,7 @@ class _AppointmentViewState extends State<AppointmentView> {
               IconButton(
                   onPressed: () async{
                     // Show confirmation dialog
-                    var confirm = await Get.defaultDialog(
+                    await Get.defaultDialog(
                       title: "Do you want to logout?",
                       content: Container(),
                       textConfirm: "Yes",
@@ -207,9 +207,7 @@ class _AppointmentViewState extends State<AppointmentView> {
                                   // ),
                                 ),
                                 onTap: () {
-                                  Get.to(() =>  AppointmentDetailsView(
-                                    doc: data[index],
-                                  ));
+                                  Get.to(() =>  AppointmentDetailsView(doc: data[index]));
                                 },
                               ),
                               IconButton(

@@ -1,47 +1,47 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../../consts/consts.dart';
+import 'package:flutter/material.dart';
 
 class AppointmentDetailsView extends StatelessWidget {
-  final DocumentSnapshot doc;
-
-  const AppointmentDetailsView({super.key, required this.doc});
+  final QueryDocumentSnapshot? doc;
+  const AppointmentDetailsView({super.key,
+    required this.doc,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
-        title: AppStyles.bold(title: "Doctor Name", color: AppColors.whiteColor, size: AppSizes.size16.toDouble()),
+        title: const Text('Appointment Details'),
       ),
-      body:  Padding(
-        padding: const EdgeInsets.all(10.0),
-        child:  Column(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppStyles.bold(title: "Select appointment day"),
-            5.heightBox,
-            AppStyles.normal(title: doc['appDay']),
-
-            10.heightBox,
-            AppStyles.bold(title: "Select appointment time"),
-            5.heightBox,
-            AppStyles.normal(title: doc['appTime']),
-            20.heightBox,
-            AppStyles.bold(title: "Mobile Number:"),
-            5.heightBox,
-            AppStyles.normal(title: doc['appMobile']),
-            10.heightBox,
-            AppStyles.bold(title: "Full Name"),
-            5.heightBox,
-            AppStyles.normal(title: doc['appName']),
-            10.heightBox,
-            AppStyles.bold(title: "Message"),
-            5.heightBox,
-            AppStyles.normal(title: doc['appMessage']),
+            Text(
+              'Date: ${doc?['appDay']}',
+              style: const TextStyle(fontSize: 18.0),
+            ),
+            const SizedBox(height: 12.0),
+            Text(
+              'Time: ${doc!['appTime']}',
+              style: const TextStyle(fontSize: 18.0),
+            ),
+            const SizedBox(height: 12.0),
+            const Text(
+              'Location: --',
+              style: TextStyle(fontSize: 18.0),
+            ),
+            const SizedBox(height: 12.0),
+            Text(
+              'Details: ${doc!['appMessage']}',
+              style: const TextStyle(fontSize: 18.0),
+            ),
           ],
         ),
       ),
     );
   }
 }
+

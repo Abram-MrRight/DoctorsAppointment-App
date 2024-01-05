@@ -474,7 +474,8 @@ class BookAppointment extends StatelessWidget {
                         onTap: () async {
                           await controller.bookAppointment(context, docId );
                           if (!context.mounted) return;
-                          Navigator.of(context).pushReplacement(
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(
                             MaterialPageRoute(builder: (context) => BookingSuccess(controller: controller))
                           );
                         },
