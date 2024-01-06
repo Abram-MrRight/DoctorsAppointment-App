@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctors_appt/views/appointment_details_view/appointment_details_view.dart';
 import 'package:doctors_appt/views/login_view/login_view.dart';
+import 'package:doctors_appt/views/profile/profile_view.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../consts/consts.dart';
 import 'package:get/get.dart';
@@ -28,6 +29,7 @@ class _AppointmentViewState extends State<AppointmentView> {
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
+          drawer: const ProfileView(),
           backgroundColor: AppColors.bgDarkColor,
           appBar: AppBar(
             backgroundColor: AppColors.blueTheme,
@@ -36,6 +38,20 @@ class _AppointmentViewState extends State<AppointmentView> {
               title: "Appointments",
               color: AppColors.whiteColor,
               size: AppSizes.size18.toDouble(),
+            ),
+            elevation: 0.0,
+            leading: Builder(
+              builder: (context) => IconButton(
+                icon: CircleAvatar(
+                  backgroundImage: AssetImage(
+                      Appassets.imgDefault
+                  ),
+                  radius: 16,
+                ),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              ),
             ),
             actions: [IconButton(
               onPressed: (){},

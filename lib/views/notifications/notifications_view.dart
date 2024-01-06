@@ -1,5 +1,11 @@
 import 'package:doctors_appt/consts/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../consts/fonts.dart';
+import '../../consts/images.dart';
+import '../profile/profile_view.dart';
+import '../search_view/search_entry_view.dart';
 
 class NotificationsView extends StatelessWidget {
   const NotificationsView({super.key});
@@ -7,9 +13,37 @@ class NotificationsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const ProfileView(),
       appBar: AppBar(
-        title: const Text('Notifications', style: TextStyle(fontSize: 18)),
-        automaticallyImplyLeading: false,
+        elevation: 0.0,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: CircleAvatar(
+              backgroundImage: AssetImage(
+                  Appassets.imgDefault
+              ),
+              radius: 16,
+            ),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
+        ),
+        title: AppStyles.bold(
+          title: "Notifications",
+          size: AppSizes.size18.toDouble(),
+          color: AppColors.whiteColor,
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(
+                Icons.search
+            ),
+            onPressed: () {
+              Get.to(() => const SearchEntryView());
+            },
+          )
+        ],
       ),
       body: ListView(
         children: [
