@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctors_appt/views/appointment_details_view/appointment_details_view.dart';
 import 'package:doctors_appt/views/login_view/login_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../consts/consts.dart';
 import 'package:get/get.dart';
 import '../../controllers/auth_controller.dart';
@@ -19,12 +16,12 @@ class AppointmentView extends StatefulWidget {
 }
 
 class _AppointmentViewState extends State<AppointmentView> {
-  var controller = Get.put(MyAppointmentController());
-  var controller2 = Get.put(AuthController());
 
 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(MyAppointmentController());
+    var controller2 = Get.put(AuthController());
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -140,7 +137,7 @@ class _AppointmentViewState extends State<AppointmentView> {
                                           children: [
                                             CircleAvatar(
                                               backgroundImage: AssetImage(
-                                                Appassets.imgSignup,
+                                                Appassets.imgSignup
                                               ),
                                               radius: 36,
                                             ),
@@ -149,9 +146,7 @@ class _AppointmentViewState extends State<AppointmentView> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  // data[index]['appWithName'],
-                                                // controller2.emailController.value.text,
-                                                  'Doctor\'s name',
+                                                 controller2.emailController.value.text,
                                                   style: TextStyle(
                                                       fontWeight: FontWeight.bold,
                                                       fontSize: 16,
@@ -242,94 +237,36 @@ class _AppointmentViewState extends State<AppointmentView> {
                                           ),
                                         ),
                                         actions: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text('Cancel', style: TextStyle(color: AppColors.whiteColor),),
-                                              style: TextButton.styleFrom(
-                                                  backgroundColor: Colors.red,
-                                                  textStyle: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  padding: const EdgeInsets.symmetric(
-                                                      horizontal: 8
-                                                  )
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('Cancel', style: TextStyle(color: AppColors.whiteColor),),
+                                            style: TextButton.styleFrom(
+                                              backgroundColor: Colors.red,
+                                              textStyle: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
                                               ),
+                                              padding: const EdgeInsets.symmetric(
+                                                horizontal: 8
+                                              )
                                             ),
-                                            TextButton(
-                                              onPressed: () {
-                                                // Show confirmation dialog
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return AlertDialog(
-                                                      title: Text("Confirm Deletion"),
-                                                      content: Text("Are you sure you want to delete this appointment?"),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () {
-                                                            Navigator.of(context).pop(); // Close the confirmation dialog
-                                                          },
-                                                          child: Text('No', style: TextStyle(color: AppColors.blueTheme)),
-                                                        ),
-                                                        TextButton(
-                                                          onPressed: () async {
-                                                            Navigator.of(context).pop(); // Close the confirmation dialog
-                                                            String appointmentId = data[index]['appBy'];
-                                                            // Launch email intent with pre-filled subject and body
-                                                            final Uri _emailLaunchUri = Uri(
-                                                              scheme: 'mailto',
-                                                              path: 'support@example.com',
-                                                              queryParameters: {
-                                                                'subject': 'Appointment Deletion Reason',
-                                                                'body': 'Reason for deleting the appointment: ',
-                                                              },
-                                                            );
-
-                                                            if (await canLaunch(_emailLaunchUri.toString())) {
-                                                              await launch(_emailLaunchUri.toString());
-                                                              await deleteAppointment(appointmentId);
-                                                            } else {
-                                                              // Handle error
-                                                            }
-                                                          },
-                                                          child: Text('Yes', style: TextStyle(color: Colors.red)),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                              child: Text('Delete', style: TextStyle(color: AppColors.whiteColor)),
-                                              style: TextButton.styleFrom(
-                                                backgroundColor: Colors.red,
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('Reschedule', style: TextStyle(color: AppColors.whiteColor),),
+                                            style: TextButton.styleFrom(
+                                                backgroundColor: AppColors.blueTheme,
                                                 textStyle: const TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                 ),
-                                                padding: const EdgeInsets.symmetric(horizontal: 8),
-                                              ),
+                                                padding: const EdgeInsets.symmetric(
+                                                    horizontal: 8
+                                                )
                                             ),
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text('Reschedule', style: TextStyle(color: AppColors.whiteColor),),
-                                              style: TextButton.styleFrom(
-                                                  backgroundColor: AppColors.blueTheme,
-                                                  textStyle: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  padding: const EdgeInsets.symmetric(
-                                                      horizontal: 8
-                                                  )
-                                              ),
-                                            ),
-                                          ]
-                                          )
+                                          ),
                                         ],
                                       );
                                     }
@@ -364,24 +301,4 @@ class _AppointmentViewState extends State<AppointmentView> {
       ),
     );
   }
-
-  Future<void> deleteAppointment(String appointmentId) async {
-    try {
-      // Reference to the appointments collection in Firestore
-      final CollectionReference appointmentsCollection =
-      FirebaseFirestore.instance.collection('appoimtments');
-
-      // Delete the appointment with the given ID
-      await appointmentsCollection.doc(FirebaseAuth.instance.currentUser?.uid).delete();
-
-      // Optionally, you can add additional logic or return a success message
-      print('Appointment deleted successfully!');
-    } catch (e) {
-      // Handle errors, e.g., if the document doesn't exist
-      print('Error deleting appointment: $e');
-      // Optionally, you can throw an exception or return an error message
-      throw e;
-    }
-  }
-
 }

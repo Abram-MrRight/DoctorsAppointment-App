@@ -4,6 +4,7 @@ import 'package:doctors_appt/views/profile/password_changing_view.dart';
 import 'package:doctors_appt/views/profile/profile_editing_view.dart';
 import 'package:doctors_appt/views/profile/settings_view.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../consts/consts.dart';
 import '../../controllers/auth_controller.dart';
 import '../../controllers/settings_controller.dart';
@@ -153,8 +154,11 @@ class ProfileView extends StatelessWidget {
                     )
                   ),
                   OutlinedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         AuthController().signOut();
+                        final SharedPreferences pref = await SharedPreferences.getInstance();
+                        pref.remove('isDoctor');
+                        if (context.mounted) VxToast.show(context, msg: pref.getString('isDoctor') ?? 'Nada');
                         Get.offAll(() => const LoginView());
                       },
                       style: OutlinedButton.styleFrom(

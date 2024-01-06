@@ -95,7 +95,7 @@ class BookingSuccess extends StatelessWidget {
           buttonText: "Done",
           onTap: () {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => Home(selectedIndex: 1))
+              MaterialPageRoute(builder: (context) => Home(isDoctor: false, selectedIndex: 1))
             );
           },
         ),
