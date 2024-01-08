@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:doctors_appt/consts/colors.dart';
 import 'package:doctors_appt/consts/consts.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class PasswordChangeView extends StatefulWidget {
-  const PasswordChangeView({super.key});
+  const PasswordChangeView({Key? key}) : super(key: key);
 
   @override
   _PasswordChangeViewState createState() => _PasswordChangeViewState();
@@ -14,6 +16,69 @@ class _PasswordChangeViewState extends State<PasswordChangeView> {
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController confirmNewPasswordController =
   TextEditingController();
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  String? validatePassword(String password) {
+    if (password.isEmpty) {
+      return 'Password is required';
+    } else if (password.length < 4) {
+      return 'Password must be at least 6 characters long';
+    }
+    return null;
+  }
+
+  Future<void> changePassword() async {
+    try {
+      final User? user = _auth.currentUser;
+
+      if (user != null) {
+        // Reauthenticate the user
+        final AuthCredential credential = EmailAuthProvider.credential(
+          email: user.email!,
+          password: currentPasswordController.text,
+        );
+
+        await user.reauthenticateWithCredential(credential);
+
+        // Validate the new password
+        final newPassword = newPasswordController.text;
+        final confirmPassword = confirmNewPasswordController.text;
+
+        final newPasswordError = validatePassword(newPassword);
+        final confirmPasswordError =
+        newPassword != confirmPassword ? 'Passwords do not match' : null;
+
+        if (newPasswordError != null || confirmPasswordError != null) {
+          VxToast.show(
+            context,
+            msg: newPasswordError ?? confirmPasswordError!,
+            bgColor: Colors.red,
+          );
+          return;
+        }
+
+        // Change the user's password
+        await user.updatePassword(newPassword);
+
+        // Show success message
+        VxToast.show(
+            context,
+            msg: "Password changed successfully",
+            bgColor: Colors.red,
+            textColor: Colors.white,
+            position: VxToastPosition.top,
+        );
+        Navigator.of(context).pop();
+      } else {
+        // Handle the case where the user is not signed in
+        VxToast.show(context, msg: "User not signed in");
+      }
+    } catch (e) {
+      // Handle errors (e.g., invalid current password, weak password)
+      VxToast.show(context, msg: "Error changing password: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,30 +94,55 @@ class _PasswordChangeViewState extends State<PasswordChangeView> {
             TextField(
               controller: currentPasswordController,
               obscureText: true,
-              decoration: const InputDecoration(labelText: 'Current Password'),
+              decoration: InputDecoration(
+                labelText: 'Current Password',
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(height: 16.0),
             TextField(
               controller: newPasswordController,
               obscureText: true,
-              decoration: const InputDecoration(labelText: 'New Password'),
+              decoration: InputDecoration(
+                labelText: 'New Password',
+                border: OutlineInputBorder(),
+              ),
             ),
+            if (validatePassword(newPasswordController.text) != null)
+              const SizedBox(height: 8.0),
+            if (validatePassword(newPasswordController.text) != null)
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  validatePassword(newPasswordController.text)!,
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
             const SizedBox(height: 16.0),
             TextField(
               controller: confirmNewPasswordController,
               obscureText: true,
-              decoration: const InputDecoration(labelText: 'Confirm New Password'),
+              decoration: InputDecoration(
+                labelText: 'Confirm New Password',
+                border: OutlineInputBorder(),
+              ),
             ),
+            if (newPasswordController.text != confirmNewPasswordController.text)
+              const SizedBox(height: 8.0),
+            if (newPasswordController.text != confirmNewPasswordController.text)
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  'Passwords do not match',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
             const SizedBox(height: 24.0),
             ElevatedButton(
-              onPressed: () {
-                // Validate passwords and perform the update
-                VxToast.show(context, msg: "Password changed");
-                Navigator.of(context).pop();
-              },
+              onPressed: changePassword,
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.blueTheme,
-                foregroundColor: AppColors.whiteColor
+                primary: AppColors.blueTheme,
+                onPrimary: AppColors.whiteColor,
               ),
               child: const Text('Update Password'),
             ),
@@ -64,8 +154,8 @@ class _PasswordChangeViewState extends State<PasswordChangeView> {
               child: Text(
                 'Forgot password?',
                 style: TextStyle(
-                    color: AppColors.blueTheme,
-                    fontWeight: FontWeight.w900
+                  color: AppColors.blueTheme,
+                  fontWeight: FontWeight.w900,
                 ),
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:doctors_appt/consts/colors.dart';
+import 'package:doctors_appt/consts/consts.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -18,7 +19,11 @@ class SettingsPage extends StatelessWidget {
           children: [
             _buildSectionHeader('Account'),
             _buildSettingCard('User Profile', Icons.account_circle),
-            _buildSettingCard('Change Password', Icons.lock),
+
+            _buildSettingCard(
+                'Change Password',
+                Icons.lock,
+            ),
             _buildSettingCard('Deactivate Account', Icons.cancel),
 
             _buildSectionHeader('Display'),
