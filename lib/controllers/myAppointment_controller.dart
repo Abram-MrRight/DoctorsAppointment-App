@@ -45,4 +45,7 @@ class MyAppointmentController extends GetxController{
     return FirebaseFirestore.instance.collection('appoimtments').get();
 
   }
+
+
+
 }

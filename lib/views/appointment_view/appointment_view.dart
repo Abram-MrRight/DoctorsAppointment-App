@@ -1,15 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctors_appt/views/appointment_details_view/appointment_details_view.dart';
+import 'package:doctors_appt/views/appointment_view/delete_appointment.dart';
+import 'package:doctors_appt/views/book_appointment/book_appointment.dart';
 import 'package:doctors_appt/views/login_view/login_view.dart';
+import 'package:doctors_appt/views/notifications/notifications_view.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../consts/consts.dart';
 import 'package:get/get.dart';
+import 'appointment_edit.dart';
 import '../../controllers/auth_controller.dart';
 import '../../controllers/myAppointment_controller.dart';
 import 'package:badges/badges.dart' as badges;
 
+
 class AppointmentView extends StatefulWidget {
-  const AppointmentView({super.key});
+
+  Map<String, dynamic>? doc;
+  AppointmentView({super.key, required this.doc});
+
+
 
   @override
   State<AppointmentView> createState() => _AppointmentViewState();
@@ -17,6 +26,13 @@ class AppointmentView extends StatefulWidget {
 
 class _AppointmentViewState extends State<AppointmentView> {
 
+  late BuildContext parentContext; // Declare parentContext
+
+  @override
+  void initState() {
+    super.initState();
+    parentContext = context; // Initialize parentContext
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +54,9 @@ class _AppointmentViewState extends State<AppointmentView> {
               size: AppSizes.size18.toDouble(),
             ),
             actions: [IconButton(
-              onPressed: (){},
+              onPressed: (){
+                Get.to(()=> NotificationsView());
+              },
               icon:  badges.Badge(
                 badgeContent: const Text('3', style: TextStyle(color: Colors.white, fontSize: 12),
                 ),
@@ -95,7 +113,8 @@ class _AppointmentViewState extends State<AppointmentView> {
                       padding: const EdgeInsets.all(10.0),
                       child: ListView.builder(
                         itemCount: data.length, // Use actual data length
-                        itemBuilder: (BuildContext context, int index) {
+                        itemBuilder: (BuildContext context, index) {
+                          var currentAppointment = data[index];
                           return Stack(
                             alignment: Alignment.topRight,
                             children: [
@@ -167,111 +186,59 @@ class _AppointmentViewState extends State<AppointmentView> {
                                       ],
                                     ),
                                   ),
-                                  // child: ListTile(
-                                  //   onTap: () {
-                                  //     Get.to(() =>  AppointmentDetailsView(
-                                  //       doc: data[index],
-                                  //     ));
-                                  //   },
-                                  //   leading: CircleAvatar(
-                                  //     child: Image.asset(Appassets.imgSignup),
-                                  //   ),
-                                  //   title: Row(
-                                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  //     children: [
-                                  //       Column(
-                                  //         crossAxisAlignment: CrossAxisAlignment.start,
-                                  //         children: [
-                                  //           const Text(
-                                  //             "Appointment date",
-                                  //             style: TextStyle(
-                                  //               fontSize: 12
-                                  //             ),
-                                  //           ),
-                                  //           Text(
-                                  //             data[index]['appDay'],
-                                  //             style: TextStyle(
-                                  //               fontWeight: FontWeight.w900,
-                                  //               fontSize: 12
-                                  //             ),
-                                  //           )
-                                  //         ],
-                                  //       )
-                                  //     ],
-                                  //   ),
-                                  //   // title: AppStyles.bold(title:"Doctor Name"),
-                                  //   subtitle: AppStyles.normal(
-                                  //     title: "${data[index]['appDay']} - ${data[index]['appTime']}",
-                                  //     color: AppColors.textColor.withOpacity(0.5),
-                                  //   ),
-                                  // ),
                                 ),
                                 onTap: () {
-                                  Get.to(() =>  AppointmentDetailsView(doc: data[index]));
+                                  Get.to(() =>  AppointmentDetailsView( doc: currentAppointment));
                                 },
                               ),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.more_vert_outlined,
-                                ),
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "Cancel Appointment",
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              color: AppColors.blueTheme,
-                                              fontWeight: FontWeight.bold
-                                            ),
-                                          ),
-                                        ),
-                                        content: const Text(
-                                          "If you wish to postpone your appointment, you may need to click reschedule instead",
-                                          style: TextStyle(
+                              Column(
+                                children: [
+                                  IconButton(
+                                    icon:  Icon(
+                                      Icons.edit,
+                                    ),
+                                    onPressed: ()  async{
+                                      await Get.defaultDialog(
+                                          title: "Do you want to reschedule the appointment?",
+                                          content: Container(),
+                                          textConfirm: "Yes",
+                                          textCancel: "No",
+                                          onConfirm: () async {
+                                            final docSnapshot = snapshot.data!.docs[index];
+                                            final dialog = AppointmentEditDialog(documentId: docSnapshot.id); // Pass index to constructor
+                                            await showDialog(context: context, builder: (context) => dialog);
+                                            setState(() {}); // Trigger a rebuild to fetch updated data
+                                          },
+                                          onCancel: (){
 
-                                          ),
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Text('Cancel', style: TextStyle(color: AppColors.whiteColor),),
-                                            style: TextButton.styleFrom(
-                                              backgroundColor: Colors.red,
-                                              textStyle: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                              ),
-                                              padding: const EdgeInsets.symmetric(
-                                                horizontal: 8
-                                              )
-                                            ),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Text('Reschedule', style: TextStyle(color: AppColors.whiteColor),),
-                                            style: TextButton.styleFrom(
-                                                backgroundColor: AppColors.blueTheme,
-                                                textStyle: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                                padding: const EdgeInsets.symmetric(
-                                                    horizontal: 8
-                                                )
-                                            ),
-                                          ),
-                                        ],
+                                          }
                                       );
-                                    }
-                                  );
-                                },
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(
+                                      Icons.delete,
+                                    ),
+                                    onPressed: () async {
+                                      // Show confirmation dialog
+                                      await Get.defaultDialog(
+                                        title: "Do you want to delete the appointment?",
+                                        content: Container(), // You can customize the content if needed
+                                        textConfirm: "Yes",
+                                        textCancel: "No",
+                                        onConfirm: () async {
+                                          final docSnapshot = snapshot.data!.docs[index];
+                                          // Call the method to delete the appointment
+                                           await DeleteAppointment.deleteAppointment(currentAppointment.id);
+                                          Navigator.of(context).pop(); // Close the dialog after deleting
+                                        },
+                                        onCancel: () {
+                                          // Do nothing if the user clicks No
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ],
                               )
                             ],
                           );
@@ -297,8 +264,21 @@ class _AppointmentViewState extends State<AppointmentView> {
               ),
             ],
           ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+
+              Get.to(() =>  BookAppointment(
+                docId: 'docId',
+                fullname: 'fullname',
+              ));
+              },
+            child: Icon(Icons.add),
+            backgroundColor: AppColors.blueTheme,
+          ),
         ),
       ),
     );
   }
+
+
 }

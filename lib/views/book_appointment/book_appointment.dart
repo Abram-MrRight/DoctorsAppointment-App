@@ -374,6 +374,10 @@ class BookAppointment extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  AppStyles.bold(title: "Full name:"),
+                  5.heightBox,
+                  CustomTextField(hint: "fullname", textController: controller.appointmentNameController,),
+                  5.heightBox,
                   AppStyles.bold(title: "Mobile Number:"),
                   5.heightBox,
                   CustomTextField(hint: "Phone Number", textController: controller.appointmentMobileController,),

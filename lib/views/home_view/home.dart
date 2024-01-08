@@ -32,7 +32,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     List screenList = [
       widget.isDoctor ? DoctorHomePage() : const HomeView(),
-      const AppointmentView(),
+       AppointmentView(doc: {},),
       widget.isDoctor ? const PatientRecordsPage() : const CategoryView(),
       const NotificationsView(),
     ];

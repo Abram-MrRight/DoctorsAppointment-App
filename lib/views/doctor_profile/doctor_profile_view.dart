@@ -555,7 +555,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: CustomButton(buttonText: "Book an appointment", onTap: (){
+        child: CustomButton(buttonText: "Book an appointment",
+          onTap: (){
           Get.to(() =>  BookAppointment(docId: widget.doc['docId'],fullname: widget.doc['fullname'],
           ));
 
