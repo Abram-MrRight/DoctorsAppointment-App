@@ -3,6 +3,7 @@ import 'package:doctors_appt/views/profile/medical_records_view.dart';
 import 'package:doctors_appt/views/profile/password_changing_view.dart';
 import 'package:doctors_appt/views/profile/profile_editing_view.dart';
 import 'package:doctors_appt/views/profile/settings_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../consts/consts.dart';
@@ -23,7 +24,7 @@ class ProfileView extends StatelessWidget {
         children:  [
           UserAccountsDrawerHeader(
               accountName: Text(
-                controller.username.value,
+                FirebaseAuth.instance.currentUser?.email ?? '',
                 style: const TextStyle(
                   fontWeight: FontWeight.w900
                 ),

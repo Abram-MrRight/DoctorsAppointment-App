@@ -77,7 +77,7 @@ storeUserData(String uid, String fullname, String email, bool isDoctor) async{
       'docAbout' : aboutController.text,
       'docAddress' : addressController.text,
       'docCategory' : categoryController,
-      'docRating' : ratingController.text,
+      'docRating' : '0.0',
       'docService' : serviceController.text,
       'docPhone' : phoneController.text,
       'docTiming' : timingController.text,

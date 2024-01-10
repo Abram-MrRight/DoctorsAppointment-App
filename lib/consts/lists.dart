@@ -67,3 +67,13 @@ var settingsListIcon = [
   Icons.note,
   Icons.logout
 ];
+
+var workingDays = {
+  'Monday' : false,
+  'Tuesday' : false,
+  'Wednesday' : false,
+  'Thursday' : false,
+  'Friday' : false,
+  'Saturday' : false,
+  'Sunday' : false,
+};
