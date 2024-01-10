@@ -2,14 +2,17 @@ import 'dart:io';
 import 'package:doctors_appt/consts/fonts.dart';
 import 'package:doctors_appt/controllers/settings_controller.dart';
 import 'package:doctors_appt/controllers/userController/userController.dart';
+import 'package:doctors_appt/views/profile/profile_update_db.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../consts/colors.dart';
 import '../../consts/images.dart';
+import '../../controllers/auth_controller.dart';
+import '../../controllers/myAppointment_controller.dart';
+import '../book_appointment/calendar.dart';
 
 class ProfileEditingView extends StatefulWidget {
   const ProfileEditingView({super.key});
@@ -19,6 +22,11 @@ class ProfileEditingView extends StatefulWidget {
 }
 
 class _ProfileEditingViewState extends State<ProfileEditingView> {
+  final DatabaseService _databaseService = DatabaseService();
+  final AuthController _authController = AuthController();
+
+  var controllerCalendar = Get.put(MyAppointmentController());
+
   var controller = Get.put(SettingsController());
   var authController = Get.put(UserController());
   bool editing = false;
@@ -29,13 +37,13 @@ class _ProfileEditingViewState extends State<ProfileEditingView> {
     'email': TextEditingController(),
     'phone': TextEditingController(),
     'location': TextEditingController(),
-    'bio': TextEditingController(),
+   // 'bio': TextEditingController(),
     'address': TextEditingController(),
-    'category': TextEditingController(),
-    'services': TextEditingController(),
-    'opening': TextEditingController(),
-    'closing': TextEditingController(),
-    'allergies': TextEditingController(),
+   // 'category': TextEditingController(),
+   // 'services': TextEditingController(),
+    //'opening': TextEditingController(),
+    //'closing': TextEditingController(),
+     'allergies': TextEditingController(),
     'blood': TextEditingController(),
     'dob': TextEditingController(),
   };
@@ -44,12 +52,12 @@ class _ProfileEditingViewState extends State<ProfileEditingView> {
     'email': FocusNode(),
     'phone': FocusNode(),
     'location': FocusNode(),
-    'bio': FocusNode(),
+   // 'bio': FocusNode(),
     'address': FocusNode(),
-    'category': FocusNode(),
-    'services': FocusNode(),
-    'opening': FocusNode(),
-    'closing': FocusNode(),
+   // 'category': FocusNode(),
+   // 'services': FocusNode(),
+   // 'opening': FocusNode(),
+   // 'closing': FocusNode(),
     'allergies': FocusNode(),
     'blood': FocusNode(),
     'dob': FocusNode(),
@@ -85,22 +93,54 @@ class _ProfileEditingViewState extends State<ProfileEditingView> {
         ),
         actions: [
           TextButton(
-            onPressed: () {
-              // save profile changes
-              VxToast.show(
-                  context, msg: "Profile changes saved!", position: VxToastPosition.center,
-                bgColor: AppColors.blueTheme, textColor: AppColors.whiteColor
-              );
+            onPressed: () async {
+              if (_formKey.currentState?.validate() ?? false) {
+                String userId = _databaseService.getCurrentUserId();
+
+                // Update the user's profile information
+                print("Updating profile...");
+                try {
+                  await _databaseService.updateUserProfile(
+                    userId: userId,
+                    userData: {
+                      'name': editControllers['name']!.text,
+                      'email': editControllers['email']!.text,
+                      'phone': editControllers['phone']!.text,
+                      'location': editControllers['location']!.text,
+                      'address': editControllers['address']!.text,
+                      'allergies': editControllers['allergies']!.text,
+                      'blood': editControllers['blood']!.text,
+                      'dob': editControllers['dob']!.text,
+                      // Add other fields as needed
+                    },
+                  );
+
+                  print("Profile updated successfully!");
+
+                  VxToast.show(
+                    context,
+                    msg: "Profile changes saved!",
+                    position: VxToastPosition.center,
+                    bgColor: AppColors.blueTheme,
+                    textColor: AppColors.whiteColor,
+                  );
+                } catch (e) {
+                  print("Error updating profile: $e");
+                }
+              }
             },
+
+
             child: Text(
               "Save",
               style: TextStyle(
                 color: AppColors.whiteColor,
                 fontWeight: FontWeight.bold,
-                fontSize: 16
+                fontSize: 16,
               ),
             ),
           )
+
         ],
       ),
       body: SingleChildScrollView(
@@ -214,14 +254,15 @@ class _ProfileEditingViewState extends State<ProfileEditingView> {
                       const Divider(),
                       Column(
                         children: [
-                          buildTextInputField('Bio', 'Doctor bio goes here...lorem ipsum blah blah blah', 5, editControllers['bio']!, focusNodes['bio']!),
-                          const Divider(),
-                          buildTextInputField('Speciality', 'Categories', 1, editControllers['category']!, focusNodes['category']!),
-                          const Divider(),
-                          buildTextInputField('Services', 'List of services offered goes here', 5, editControllers['services']!, focusNodes['services']!),
-                          const Divider(),
-                          buildTextInputField('Address', 'Health facility address', 1, editControllers['address']!, focusNodes['address']!),
-                          const Divider(),
+                       //   buildTextInputField('Bio', 'Doctor bio goes here...lorem ipsum blah blah blah', 5, editControllers['bio']!, focusNodes['bio']!),
+                       //   const Divider(),
+                       //   buildTextInputField('Speciality', 'Categories', 1, editControllers['category']!, focusNodes['category']!),
+                       //   const Divider(),
+                       //   buildTextInputField('Services', 'List of services offered goes here', 5, editControllers['services']!, focusNodes['services']!),
+                         //  const Divider(),
+                       //   buildTextInputField('Address', 'Health facility address', 1, editControllers['address']!, focusNodes['address']!),
+                         // const Divider(),
+                          /*
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -275,6 +316,7 @@ class _ProfileEditingViewState extends State<ProfileEditingView> {
                               ),
                             ],
                           ),
+                          */
                           8.heightBox
                         ],
                       ), // to be displayed for doctors only
@@ -285,9 +327,9 @@ class _ProfileEditingViewState extends State<ProfileEditingView> {
                           const Divider(),
                           DropdownButtonFormField(
                             decoration: InputDecoration(
-                              labelText: "Blood Type",
-                              labelStyle: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.bold),
-                              border: InputBorder.none
+                                labelText: "Blood Type",
+                                labelStyle: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.bold),
+                                border: InputBorder.none
                             ),
                             items: bloodTypes.map<DropdownMenuItem<String>>((String bloodType) {
                               return DropdownMenuItem<String>(
@@ -307,33 +349,19 @@ class _ProfileEditingViewState extends State<ProfileEditingView> {
                                 fontWeight: FontWeight.bold
                             ),
                           ),
-                          DatePickerWidget(
-                            looping: true,
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime.now(),
-                            dateFormat: "dd/MMMM/yyyy",
-                            onChange: (DateTime newDate, _) {
-                              setState(() {
-                                editControllers['dob']?.text = newDate.toString();
-                              });
-                            },
-                            pickerTheme: const DateTimePickerTheme(
-                              backgroundColor: Colors.transparent,
-                              itemTextStyle:
-                              TextStyle(fontSize: 19),
-                              dividerColor: Colors.grey,
-                            ),
-                          )
+                          MyCalendar(controller: controllerCalendar),
+                          const Divider(),
                         ],
                       ) // to be displayed for patients only
                     ],
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
+
     );
   }
 

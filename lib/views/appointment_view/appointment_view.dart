@@ -12,6 +12,8 @@ import '../../controllers/auth_controller.dart';
 import '../../controllers/myAppointment_controller.dart';
 import 'package:badges/badges.dart' as badges;
 
+import 'cancelled_appointment/cancelled_appointment_view.dart';
+
 
 class AppointmentView extends StatefulWidget {
 
@@ -248,13 +250,47 @@ class _AppointmentViewState extends State<AppointmentView> {
                   }
                 },
               ),
-              Center(
-                child: Icon(
-                  Icons.hourglass_empty_outlined,
-                  size: 128,
-                  color: Colors.grey.withOpacity(0.25),
-                ),
+              FutureBuilder<QuerySnapshot>(
+                future: controller.getCancelledAppointments(),
+                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Center(
+                      child: Text('Error loading appointments'),
+                    );
+                  } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(
+                      child: Text('No cancelled appointments'),
+                    );
+                  } else {
+                    // Check if there are cancelled appointments
+                    var hasCancelledAppointments = snapshot.data!.docs.any(
+                          (doc) {
+                        var docData = doc.data() as Map<String, dynamic>;
+                        print('Document ID: ${doc.id}, Data: $docData');
+
+                        var isCancelled = docData['isCancelled'] == true;
+                        print('isCancelled: $isCancelled');
+
+                        return isCancelled;
+                      },
+                    );
+
+                    if (!hasCancelledAppointments) {
+                      return const Center(
+                        child: Text('No cancelled appointments'),
+                      );
+                    }
+
+                    // Display the CancelledAppointmentView
+                    return CancelledAppointmentView();
+                  }
+                },
               ),
+
               Center(
                 child: Icon(
                   Icons.hourglass_empty_outlined,

@@ -46,6 +46,19 @@ class MyAppointmentController extends GetxController{
 
   }
 
+  Future<QuerySnapshot<Object?>> getCancelledAppointments() async {
+    try {
+      // Fetch cancelled appointments from Firestore
+      QuerySnapshot<Object?> querySnapshot = await FirebaseFirestore.instance.collection('deletedAppointments').get();
+
+      // Return the query snapshot
+      return querySnapshot;
+    } catch (e) {
+      // Handle errors, e.g., show an error message
+      print("Error fetching cancelled appointments: $e");
+      throw e; // You might want to throw an exception or handle the error accordingly
+    }
+  }
 
 
 }

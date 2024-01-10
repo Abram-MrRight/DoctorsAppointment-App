@@ -13,6 +13,12 @@ class AuthController extends GetxController{
   final emailController = TextEditingController();
   final passwordController= TextEditingController();
   final confirmPassword = TextEditingController();
+  final contactController = TextEditingController();
+  final locationController = TextEditingController();
+  final allergiesController= TextEditingController();
+  String bloodGroupController = '';
+  String dobController = '';
+
 
   //as a doctor
   final aboutController = TextEditingController();
@@ -66,7 +72,16 @@ storeUserData(String uid, String fullname, String email, bool isDoctor) async{
       'email' :   emailController.text,
     });
   }else{
-    await store.set({'fullname': fullname, 'email': email});
+    await store.set({
+      'fullname': fullname,
+      'email': email,
+      'contact': contactController.text,
+      'location': locationController.text,
+      'allergies': allergiesController.text,
+      'bloodType':bloodGroupController.text,
+      'dateOfBirth': dobController.text,
+
+    });
 
   }
   }
@@ -74,4 +89,10 @@ storeUserData(String uid, String fullname, String email, bool isDoctor) async{
 signOut() async{
     await FirebaseAuth.instance.signOut();
 }
+  String getCurrentUserId() {
+    // Your implementation to get the current user's ID (uid)
+    // Replace the following line with the actual logic from FirebaseAuth.
+    return FirebaseAuth.instance.currentUser?.uid ?? '';
+  }
+
 }
