@@ -3,6 +3,7 @@ import 'package:doctors_appt/consts/lists.dart';
 import 'package:doctors_appt/controllers/auth_controller.dart';
 import 'package:doctors_appt/res/components/custom_button.dart';
 import 'package:doctors_appt/res/components/custom_textfield.dart';
+import 'package:doctors_appt/res/components/widgets.dart';
 import 'package:get/get.dart';
 import '../login_view/login_view.dart';
 
@@ -14,7 +15,7 @@ class SignupView extends StatefulWidget {
 }
 
 class _SignupViewState extends State<SignupView> {
-  var isDoctor = false;
+  var isDoctor = false, isConnecting = false;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -118,11 +119,6 @@ class _SignupViewState extends State<SignupView> {
                             ),
                             10.heightBox,
                             CustomTextField(
-                              hint: "Rating",
-                              textController: controller.ratingController
-                            ),
-                            10.heightBox,
-                            CustomTextField(
                               hint: "Services",
                               textController: controller.serviceController
                             ),
@@ -143,28 +139,34 @@ class _SignupViewState extends State<SignupView> {
                         });
                       }, title: "Signup as a doctor".text.make(),
                       ),
-                      CustomButton(
-                        buttonText: AppStrings.signup,
-                        onTap: () async{
+                      authButton(context, AppStrings.signup, isConnecting, () async{
                           if (!_formKey.currentState!.validate()) {
                             VxToast.show(
-                              context,
-                              msg: "Invalid input! Check your entries and try again.",
-                              bgColor: const Color(0xFF1055E5),
-                              textColor: Colors.white,
-                              textSize: 16
+                                context,
+                                msg: "Invalid input! Check your entries and try again.",
+                                bgColor: const Color(0xFF1055E5),
+                                textColor: Colors.white,
+                                textSize: 16
                             );
                           }
                           else {
-                            await controller.signupUser(isDoctor);
+                            setState(() {
+                              isConnecting = true;
+                            });
+                            String response = await controller.signupUser(isDoctor);
+                            setState(() {
+                              isConnecting = false;
+                            });
                             if(controller.userCredential !=null){
                               Get.offAll(() => const LoginView());
+                            }
+                            else {
+                              toast(response);
                             }
                           }
                         }
                       ),
                       20.heightBox,
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

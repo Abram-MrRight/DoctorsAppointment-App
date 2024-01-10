@@ -46,15 +46,28 @@ class AuthController extends GetxController{
   }
 
 
-  loginUser() async{
-    userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+  Future<String> loginUser() async{
+    try {
+      userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text
+      );
+      return '';
+    }
+    on FirebaseAuthException catch(error) {
+      return error.code;
+    }
   }
 
-  signupUser(bool isDoctor) async{
-  userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
-
-  await storeUserData(userCredential!.user!.uid, fullNameController.text, emailController.text, isDoctor);
-}
+  Future<String> signupUser(bool isDoctor) async{
+    try {
+      userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+      await storeUserData(userCredential!.user!.uid, fullNameController.text, emailController.text, isDoctor);
+      return "";
+    } on FirebaseAuthException catch(error) {
+      return error.code;
+    }
+  }
 
 storeUserData(String uid, String fullname, String email, bool isDoctor) async{
   var store = FirebaseFirestore.instance.collection(isDoctor ? 'doctors' : 'users').doc(uid);

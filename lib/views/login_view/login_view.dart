@@ -5,6 +5,7 @@ import 'package:doctors_appt/res/components/custom_textfield.dart';
 import 'package:doctors_appt/views/home_view/home.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../res/components/widgets.dart';
 import '../signup_view/signup_view.dart';
 
 class LoginView extends StatefulWidget {
@@ -16,7 +17,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  var isDoctor = false;
+  var isDoctor = false, isConnecting = false;
   var focusNode = FocusNode();
 
   @override
@@ -80,12 +81,9 @@ class _LoginViewState extends State<LoginView> {
                         child: AppStyles.normal(title: AppStrings.forgetPassword),
                       ),
                       20.heightBox,
-                      CustomButton(
-                        buttonText: AppStrings.login,
-                        onTap: () async {
-                          login(_formKey, controller);
-                        }
-                      ),
+                      authButton(context, AppStrings.login, isConnecting, () async {
+                        login(_formKey, controller);
+                      }),
                       20.heightBox,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -99,8 +97,8 @@ class _LoginViewState extends State<LoginView> {
                             },
                             child: Text(
                               AppStrings.signup,
-                              style: const TextStyle(
-                                color: Color(0xFF1055E5),
+                              style: TextStyle(
+                                color: AppColors.blueTheme,
                                 fontWeight: FontWeight.bold
                               ), // Set the text color directly here
                             ),
@@ -130,11 +128,20 @@ class _LoginViewState extends State<LoginView> {
       );
     }
     else {
-      await controller.loginUser();
+      setState(() {
+        isConnecting = true;
+      });
+      String response = await controller.loginUser();
+      setState(() {
+        isConnecting = false;
+      });
       if(controller.userCredential != null){
         final SharedPreferences pref = await SharedPreferences.getInstance();
         await pref.setBool('isDoctor', isDoctor);
         Get.to(() => Home(isDoctor: isDoctor));
+      }
+      else {
+        toast(response);
       }
     }
   }

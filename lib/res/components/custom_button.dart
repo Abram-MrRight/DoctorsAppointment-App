@@ -1,7 +1,7 @@
 import '../../consts/consts.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.buttonText, required this.onTap});
+  CustomButton({super.key, required this.buttonText, required this.onTap});
 
   final String buttonText;
   final Function()? onTap;
@@ -19,7 +19,7 @@ class CustomButton extends StatelessWidget {
           foregroundColor: Colors.white,
         ),
         onPressed: onTap,
-        child: buttonText.text.make(),
+        child: buttonText.text.make()
       ),
     );
   }
