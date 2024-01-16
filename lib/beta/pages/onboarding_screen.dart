@@ -1,17 +1,18 @@
-import 'package:doctors_appt/consts/consts.dart';
-import 'package:doctors_appt/views/home_view/home.dart';
-import 'package:doctors_appt/views/login_view/login_view.dart';
+import '../constants/strings.dart';
+import '../pages/login_page.dart';
+import '../utilities/providers.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class OnBoardingScreen extends StatefulWidget {
-  const OnBoardingScreen({super.key});
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
 
   @override
-  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
+class _OnboardingScreenState extends State<OnboardingScreen> {
   late PageController _pageController;
   bool isLastPage = false;
 
@@ -51,13 +52,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       bottomSheet: isLastPage
           ? TextButton(
         style: TextButton.styleFrom(
-            foregroundColor: Colors.white,
+            foregroundColor: Util.getTheme(context)!.scaffoldBackgroundColor,
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(
                     top: Radius.circular(16)
                 )
             ),
-            backgroundColor: const Color(0xff1055e5),
+            backgroundColor: Util.getTheme(context)!.primaryColor,
             minimumSize: const Size.fromHeight(80)
         ),
         child: const Text(
@@ -72,7 +73,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => const LoginView()
+                    builder: (BuildContext context) => LoginPage()
                 )
             );
           }
@@ -150,17 +151,17 @@ class Onboard {
 
 final List<Onboard> messageTiles = [
   Onboard(
-      image: Appassets.care,
+      image: care,
       title: 'Exceptional Care',
       description: "Experience top-tier healthcare with our commitment to providing exceptional and personalized care for your well-being."
   ),
   Onboard(
-      image: Appassets.answers,
+      image: answers,
       title: 'The Right Answers',
       description: "Discover a wealth of knowledge and find the right answers to your health-related questions through our comprehensive and reliable information."
   ),
   Onboard(
-      image: Appassets.specialists,
+      image: specialists,
       title: 'The Best Specialists',
       description: "Connect with the best specialists in the field who are dedicated to your health and well-being, ensuring you receive expert care tailored to your needs."
   ),
@@ -196,7 +197,7 @@ class OnboardContent extends StatelessWidget {
                 .displayMedium!
                 .copyWith(
               fontWeight: FontWeight.w500,
-              color: const Color(0xFF1055E5),
+              color: Util.getTheme(context)!.primaryColor,
               fontFamily: 'Segoe UI',
             ),
           ),
@@ -206,8 +207,8 @@ class OnboardContent extends StatelessWidget {
             child: Text(
               description,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                  color: Color(0xFF1055E5),
+              style: TextStyle(
+                  color: Util.getTheme(context)!.primaryColor,
                   fontSize: 16
               ),
             ),
