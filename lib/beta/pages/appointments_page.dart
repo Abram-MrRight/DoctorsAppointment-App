@@ -176,55 +176,55 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
                                   navigateTo(context, AppointmentDetailsPage(appointment: appointment, isDoctor: widget.isDoctor));
                                 },
                               ),
-                              Column(
-                                children: [
-                                  IconButton(
-                                    icon:  Icon(
-                                      Icons.edit,
-                                    ),
-                                    onPressed: ()  async{
-                                      await Get.defaultDialog(
-                                          title: "Do you want to reschedule the appointment?",
-                                          content: Container(),
-                                          textConfirm: "Yes",
-                                          textCancel: "No",
-                                          onConfirm: () async {
-                                            final docSnapshot = appointment;
-                                            // final dialog = AppointmentEditDialog(); // Pass index to constructor
-                                            // await showDialog(context: context, builder: (context) => dialog);
-                                            setState(() {}); // Trigger a rebuild to fetch updated data
-                                          },
-                                          onCancel: (){
-
-                                          }
-                                      );
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(
-                                      Icons.delete,
-                                    ),
-                                    onPressed: () async {
-                                      // Show confirmation dialog
-                                      await Get.defaultDialog(
-                                        title: "Do you want to delete the appointment?",
-                                        content: Container(), // You can customize the content if needed
-                                        textConfirm: "Yes",
-                                        textCancel: "No",
-                                        onConfirm: () async {
-                                          final docSnapshot = appointment;
-                                          // Call the method to delete the appointment
-                                          // await DeleteAppointment.deleteAppointment(currentAppointment.id);
-                                          Navigator.of(context).pop(); // Close the dialog after deleting
-                                        },
-                                        onCancel: () {
-                                          // Do nothing if the user clicks No
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ],
-                              )
+                              // Column(
+                              //   children: [
+                              //     IconButton(
+                              //       icon:  Icon(
+                              //         Icons.edit,
+                              //       ),
+                              //       onPressed: ()  async{
+                              //         await Get.defaultDialog(
+                              //             title: "Do you want to reschedule the appointment?",
+                              //             content: Container(),
+                              //             textConfirm: "Yes",
+                              //             textCancel: "No",
+                              //             onConfirm: () async {
+                              //               final docSnapshot = appointment;
+                              //               // final dialog = AppointmentEditDialog(); // Pass index to constructor
+                              //               // await showDialog(context: context, builder: (context) => dialog);
+                              //               setState(() {}); // Trigger a rebuild to fetch updated data
+                              //             },
+                              //             onCancel: (){
+                              //
+                              //             }
+                              //         );
+                              //       },
+                              //     ),
+                              //     IconButton(
+                              //       icon: const Icon(
+                              //         Icons.delete,
+                              //       ),
+                              //       onPressed: () async {
+                              //         // Show confirmation dialog
+                              //         await Get.defaultDialog(
+                              //           title: "Do you want to delete the appointment?",
+                              //           content: Container(), // You can customize the content if needed
+                              //           textConfirm: "Yes",
+                              //           textCancel: "No",
+                              //           onConfirm: () async {
+                              //             final docSnapshot = appointment;
+                              //             // Call the method to delete the appointment
+                              //             // await DeleteAppointment.deleteAppointment(currentAppointment.id);
+                              //             Navigator.of(context).pop(); // Close the dialog after deleting
+                              //           },
+                              //           onCancel: () {
+                              //             // Do nothing if the user clicks No
+                              //           },
+                              //         );
+                              //       },
+                              //     ),
+                              //   ],
+                              // )
                             ],
                           );
                         },

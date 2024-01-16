@@ -9,7 +9,6 @@ import 'package:velocity_x/velocity_x.dart';
 
 import '../constants/colors.dart';
 import '../controllers/notifications.dart';
-import '../models/users.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -70,6 +69,7 @@ class _HomePageState extends State<HomePage> {
           child: Container(
             padding: const EdgeInsets.all(10),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   carouselCategory(),
                   20.heightBox,
@@ -88,25 +88,7 @@ class _HomePageState extends State<HomePage> {
                   10.heightBox,
                   popularDoctor(),
                   10.heightBox,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Doctors Near You',
-                        style: TextStyle(
-                            color: blueTheme,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: (){},
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: text('View All', color: blueTheme, size: 14)
-                        ),
-                      ),
-                    ],
-                  ),
+                  text('Doctors Near You', color: blueTheme, weight: FontWeight.bold),
                   10.heightBox,
                   futureDoctorsNearYou(),
                   10.heightBox,

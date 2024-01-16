@@ -1,12 +1,22 @@
+import 'package:doctors_appt/beta/pages/category_details_page.dart';
+import 'package:velocity_x/velocity_x.dart';
+
+import '../components/widgets.dart';
 import '../constants/colors.dart';
 import '../constants/compound_data.dart';
 import '../pages/search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:velocity_x/velocity_x.dart';
 
-class SearchEntryView extends StatelessWidget {
+class SearchEntryView extends StatefulWidget {
   const SearchEntryView({super.key});
+
+  @override
+  State<SearchEntryView> createState() => _SearchEntryViewState();
+}
+
+class _SearchEntryViewState extends State<SearchEntryView> {
+  List<String> filteredMatches = [];
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +33,16 @@ class SearchEntryView extends StatelessWidget {
                   searchQuery: inputControllers['search']!.text,
                 ));
               },
+              onChanged: (value) {
+                setState(() {
+                  filteredMatches = specialistTypes
+                      .where((match) =>
+                      match.toLowerCase().contains(value.toLowerCase()))
+                      .toList();
+                });
+              },
               decoration: InputDecoration(
-                hintText: 'Search',
+                hintText: 'Search for a specialist',
                 hintStyle: const TextStyle(
                   fontSize: 16,
                 ),
@@ -38,38 +56,21 @@ class SearchEntryView extends StatelessWidget {
             ),
           )
       ),
-      body: Container(
-        padding: const EdgeInsets.all(16),
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Frequently searched",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            ListTile(
-              title: const Text("Cardiologist"),
-              onTap: () {},
-              splashColor: Colors.blue,
-            ),
-            ListTile(
-              title: const Text("Cardiologist"),
-              onTap: () {},
-              splashColor: Colors.blue,
-            ),
-            ListTile(
-              title: const Text("Cardiologist"),
-              onTap: () {},
-              splashColor: Colors.blue,
-            )
-          ],
+      body: Expanded(
+        child: filteredMatches.isEmpty ? Center(child: text('No matches found!')) :
+        ListView.builder(
+          itemCount: filteredMatches.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(filteredMatches[index]),
+              onTap: () {
+                navigateTo(context, CategoryDetailsPage(specialistType: filteredMatches[index]));
+              },
+              // Add more functionality as needed
+            );
+          },
         ),
       ),
-      // body: CustomAppBar(),
     );
   }
 }

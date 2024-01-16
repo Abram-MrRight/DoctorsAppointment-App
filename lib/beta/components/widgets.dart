@@ -79,7 +79,7 @@ Widget futureUser() {
     future: UserService().getUser(),
     builder: (context, AsyncSnapshot<UserModel?> snapshot) {
       if (!snapshot.hasData) {
-        return Text('Welcome');
+        return const Text('Welcome');
       }
       else if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.waiting) {
         return progressIndicator();
@@ -94,7 +94,7 @@ Widget futureUser() {
         );
       }
       else {
-        return Text('???');
+        return const Text('???');
       }
     },
   );
@@ -105,7 +105,7 @@ Widget futureUserSidebar() {
     future: UserService().getUser(),
     builder: (context, AsyncSnapshot<UserModel?> snapshot) {
       if (!snapshot.hasData) {
-        return Text('Doctor\'s Appointment');
+        return const Text('Doctor\'s Appointment');
       }
       else if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.waiting) {
         return progressIndicator();
@@ -120,7 +120,7 @@ Widget futureUserSidebar() {
         );
       }
       else {
-        return Text('???');
+        return const Text('???');
       }
     },
   );
@@ -192,7 +192,7 @@ Widget popularDoctor() {
                                       ),
                                       const SizedBox(height: 4.0),
                                       Text(
-                                        doctor!.speciality ?? '',
+                                        doctor.speciality ?? '',
                                         style: const TextStyle(
                                             fontSize: 14.0,
                                             color: Colors.white
@@ -211,7 +211,7 @@ Widget popularDoctor() {
                         child: CircleAvatar(
                           backgroundColor: Colors.transparent,
                           child: IconButton(
-                            icon:  Icon(
+                            icon:  const Icon(
                               Icons.favorite_outline,
                               color: Colors.red,
                               size: 24.0,
@@ -250,9 +250,9 @@ Widget futureDoctor(BuildContext context) {
         return SizedBox(
           height: doctors!.length * 256,
           child: ListView.builder(
-            itemCount: doctors!.length,
+            itemCount: doctors.length,
             itemBuilder: (context, index) {
-              UserModel doctor = doctors![index];
+              UserModel doctor = doctors[index];
               return GestureDetector(
                 onTap: () {
                   navigateTo(context, DoctorDetail(doctor: doctor));
@@ -355,7 +355,7 @@ Widget futureDoctor(BuildContext context) {
                               ),
                               4.widthBox,
                               Text(
-                                doctor.rating!,
+                                doctor.rating,
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold
@@ -366,7 +366,7 @@ Widget futureDoctor(BuildContext context) {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 'Consultation Fee',
                                 style: TextStyle(
                                     color: Colors.black
@@ -375,7 +375,7 @@ Widget futureDoctor(BuildContext context) {
                               4.widthBox,
                               Text(
                                 doctor.consultationFee!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold
                                 ),
@@ -394,7 +394,7 @@ Widget futureDoctor(BuildContext context) {
                               4.widthBox,
                               Text(
                                 doctor.experience!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold
                                 ),
@@ -436,7 +436,7 @@ Widget buildTimeSlotButton(String timeSlot, List<AppointmentModel> appointments)
   bool isSlotAvailable = !appointments.any((appointment) => appointment.time == timeSlot);
 
   return Container(
-    margin: EdgeInsets.symmetric(horizontal: 8),
+    margin: const EdgeInsets.symmetric(horizontal: 8),
     child: OutlinedButton(
       onPressed: isSlotAvailable
           ? () {
@@ -498,7 +498,7 @@ Widget futureSlots(UserModel doctor, String date) {
           snapshot.connectionState == ConnectionState.waiting) {
         return progressIndicator();
       } else if (snapshot.connectionState == ConnectionState.done && !snapshot.hasData) {
-        return Text('Data N/A');
+        return const Text('Data N/A');
       } else if (snapshot.hasError) {
         return Text(snapshot.error.toString());
       } else if (snapshot.hasData) {
@@ -515,7 +515,7 @@ Widget futureSlots(UserModel doctor, String date) {
           ),
         );
       } else {
-        return Text('Unknown Issue!');
+        return const Text('Unknown Issue!');
       }
     },
   );
@@ -534,7 +534,7 @@ Widget futurePhone() {
             },
             autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: TextInputType.phone,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Phone Number',
               icon: Icon(Icons.phone),
             ),
@@ -542,6 +542,7 @@ Widget futurePhone() {
               if (value!.isEmpty) {
                 return 'Phone number field is required';
               }
+              return null;
             },
           );
         }
@@ -550,13 +551,14 @@ Widget futurePhone() {
             initialValue: FirebaseAuth.instance.currentUser!.phoneNumber,
             decoration: InputDecoration(
                 labelText: 'Phone Number',
-                icon: Icon(Icons.phone),
+                icon: const Icon(Icons.phone),
                 hintText: FirebaseAuth.instance.currentUser!.phoneNumber ?? ''
             ),
             validator: (value) {
-              if (value!.isEmpty || value == null) {
+              if (value!.isEmpty) {
                 return 'Phone number field is required';
               }
+              return null;
             },
           );
         }
@@ -587,12 +589,9 @@ Widget carouselCategory() {
               margin: const EdgeInsets.only(right: 8),
               child: Column(
                 children: [
-                  Image.asset(
-                    noImage,
-                    width: 30,
-                  ),
+                  const Icon(Icons.category_outlined, color: light,),
                   5.heightBox,
-                  text('${specialistTypes[index]}', color: light, size: 12, overflow: TextOverflow.ellipsis)
+                  text(specialistTypes[index], color: light, size: 12, overflow: TextOverflow.ellipsis)
                 ],
               ),
             ),
@@ -609,14 +608,14 @@ Widget futureDoctorsNearYou() {
       if (!snapshot.hasData) {
         print('no data..................');
         snapshot.error.printError();
-        return Text('No data found!');
+        return const Text('No data found!');
       }
       else if (snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.active) {
         print('loading doctors..................');
         return progressIndicator();
       }
       else if (snapshot.hasData) {
-        List<UserModel>? doctors = snapshot!.data;
+        List<UserModel>? doctors = snapshot.data;
         return SizedBox(
           height: snapshot.data!.length * 180,
           child: ListView.builder(
@@ -801,7 +800,7 @@ Widget futureDone() {
     future: UserService().getUser(),
     builder: (context, AsyncSnapshot<UserModel?> snapshot) {
       if (!snapshot.hasData) {
-        return Text('Welcome');
+        return const Text('Welcome');
       }
       else if (snapshot.connectionState == ConnectionState.active || snapshot.connectionState == ConnectionState.waiting) {
         return progressIndicator();
@@ -812,7 +811,7 @@ Widget futureDone() {
         });
       }
       else {
-        return Text('???');
+        return const Text('???');
       }
     },
   );
@@ -824,7 +823,7 @@ Widget futureAppointment(AppointmentModel appointment, bool isDoctor) {
     UserService().getUserByEmail(appointment.doctor),
     builder: (context, AsyncSnapshot<UserModel> snapshot) {
       if (!snapshot.hasData) {
-        return Text('N/A');
+        return const Text('N/A');
       }
       else if (snapshot.connectionState == ConnectionState.active ||
           snapshot.connectionState == ConnectionState.waiting) {
@@ -837,14 +836,14 @@ Widget futureAppointment(AppointmentModel appointment, bool isDoctor) {
           children: [
             text(party!.fullName!),
             5.heightBox,
-            text('${isDoctor ? appointment.phone : party!.address}, ${party!.location}'),
+            text('${isDoctor ? appointment.phone : party.address}, ${party.location}'),
             5.heightBox,
-            appointment.message != null ? text('Concern: ${appointment!.message!}') : Container(),
+            appointment.message != null ? text('Concern: ${appointment.message!}') : Container(),
           ],
         );
       }
       else {
-        return Text('Unknown error has occurred. Please try again');
+        return const Text('Unknown error has occurred. Please try again');
       }
     },
   );
@@ -856,7 +855,7 @@ Widget futureAppointmentDetail(AppointmentModel appointment, bool isDoctor) {
     UserService().getUserByEmail(appointment.doctor),
     builder: (context, AsyncSnapshot<UserModel> snapshot) {
       if (snapshot.connectionState == ConnectionState.done && !snapshot.hasData) {
-        return Text('N/A');
+        return const Text('N/A');
       }
       else if (snapshot.connectionState == ConnectionState.active ||
           snapshot.connectionState == ConnectionState.waiting) {
@@ -875,19 +874,19 @@ Widget futureAppointmentDetail(AppointmentModel appointment, bool isDoctor) {
             12.heightBox,
             text('${isDoctor ? party.location : '${party.address}, ${party.location}'}'),
             12.heightBox,
-            appointment.message != null ? text('Concern: ${appointment!.message!}') : Container(),
+            appointment.message != null ? text('Concern: ${appointment.message!}') : Container(),
             12.heightBox,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                text('Call if an emergency: ${party!.phone}'),
+                text('Call if an emergency: ${party.phone}'),
                 12.widthBox,
                 Container(
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
                     color: success
                   ),
                   child: IconButton(
-                    icon: Icon(Icons.phone),
+                    icon: const Icon(Icons.phone),
                     color: light,
                     onPressed: () {launchUrl(Uri.parse(party.phone!));},
                   )
@@ -917,7 +916,7 @@ Widget futureAppointmentDetail(AppointmentModel appointment, bool isDoctor) {
         );
       }
       else {
-        return Text('Unknown error has occurred. Please try again');
+        return const Text('Unknown error has occurred. Please try again');
       }
     },
   );
@@ -942,7 +941,7 @@ Widget futureUpcomingAppointments() {
     builder: (context, AsyncSnapshot<List<AppointmentModel>> snapshot) {
       if (!snapshot.hasData) {
         snapshot.error.printError();
-        return Text('No data found!');
+        return const Text('No data found!');
       }
       else if (snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.active) {
         return Center(child: progressIndicator());
@@ -951,13 +950,13 @@ Widget futureUpcomingAppointments() {
         return text('You don\'t have any appointments available');
       }
       else if (snapshot.hasData) {
-        List<AppointmentModel>? appointments = snapshot!.data;
+        List<AppointmentModel>? appointments = snapshot.data;
         return SizedBox(
           height: appointments!.length * 72,
           child: ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
-              var appointment = appointments![index];
+              var appointment = appointments[index];
               return GestureDetector(
                 onTap: () {
                   Get.to(
@@ -993,7 +992,7 @@ Widget futureDrawerAccount() {
           UserModel? user = snapshot.data;
           return UserAccountsDrawerHeader(
             accountName: text(user!.fullName!, weight: FontWeight.w900),
-            accountEmail: text(user!.email!),
+            accountEmail: text(user.email!),
             currentAccountPicture: CircleAvatar(
               backgroundImage: AssetImage(
                   noImage
@@ -1015,7 +1014,7 @@ Widget futureDrawerAccount() {
           return text('User data N/A', color: light);
         }
         else {
-          return Text('An unknown error is preventing display of user information');
+          return const Text('An unknown error is preventing display of user information');
         }
       },
     );
@@ -1039,14 +1038,14 @@ Widget futureTotalPatients(UserModel doctor) {
       else if (snapshot.hasData) {
         Set patients = {};
         List<AppointmentModel> uniqueAppointments = [];
-        List<AppointmentModel>? appointments = snapshot!.data;
+        List<AppointmentModel>? appointments = snapshot.data;
         for (var appointment in appointments!) {
           if (!patients.contains(appointment.patient)) {
             patients.add(appointment.patient);
             uniqueAppointments.add(appointment);
           }
         }
-        return text(uniqueAppointments!.length.toString(), size: 16, weight: FontWeight.bold, color: light);;
+        return text(uniqueAppointments.length.toString(), size: 16, weight: FontWeight.bold, color: light);;
       }
       else {
         return Center(child: text('An unknown error occurred!'));
@@ -1070,7 +1069,7 @@ Widget futureTotalReviews(UserModel doctor) {
         return Center(child: progressIndicator());
       }
       else if (snapshot.hasData) {
-        List<ReviewModel>? reviews = snapshot!.data;
+        List<ReviewModel>? reviews = snapshot.data;
         return text(reviews!.length.toString(), size: 16, weight: FontWeight.bold, color: light);;
       }
       else {
