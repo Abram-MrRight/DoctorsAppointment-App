@@ -1,8 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <application
-        android:label="Doctor+"
+        android:label="doctors_appt"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
