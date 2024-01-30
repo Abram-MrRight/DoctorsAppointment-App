@@ -17,24 +17,15 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -52,11 +43,39 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static  FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC6dNEDmHUFJqCN6ziX317a0GvZRQ9LL6w',
-    appId: '1:181642646846:android:d53b566a89aab4f5a7486f',
-    messagingSenderId: '181642646846',
-    projectId: 'doctorsappointment-45fe7',
-    storageBucket: 'doctorsappointment-45fe7.appspot.com',
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyAxkjqprROS0fhDLtsBVkbZYNe8KXqHS6w',
+    appId: '1:972507236381:web:3e25fa84513477d1b55ef4',
+    messagingSenderId: '972507236381',
+    projectId: 'doctors-appointment-28',
+    authDomain: 'doctors-appointment-28.firebaseapp.com',
+    storageBucket: 'doctors-appointment-28.appspot.com',
+    measurementId: 'G-Y8G374NGLP',
+  );
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyAEz-4noWZ9cfCR3HL595lHw2eOSO2hc-k',
+    appId: '1:972507236381:android:ca2f049adcea474cb55ef4',
+    messagingSenderId: '972507236381',
+    projectId: 'doctors-appointment-28',
+    storageBucket: 'doctors-appointment-28.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyBoJnwJGxqdG4pRF41N5v45Hv41zXzGlO0',
+    appId: '1:972507236381:ios:414becc0c8639b62b55ef4',
+    messagingSenderId: '972507236381',
+    projectId: 'doctors-appointment-28',
+    storageBucket: 'doctors-appointment-28.appspot.com',
+    iosBundleId: 'com.abraham.doctorsAppt',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyBoJnwJGxqdG4pRF41N5v45Hv41zXzGlO0',
+    appId: '1:972507236381:ios:21a937b42296a3e7b55ef4',
+    messagingSenderId: '972507236381',
+    projectId: 'doctors-appointment-28',
+    storageBucket: 'doctors-appointment-28.appspot.com',
+    iosBundleId: 'com.abraham.doctorsAppt.RunnerTests',
   );
 }

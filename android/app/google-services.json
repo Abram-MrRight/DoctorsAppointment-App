@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "181642646846",
-    "project_id": "doctorsappointment-45fe7",
-    "storage_bucket": "doctorsappointment-45fe7.appspot.com"
+    "project_number": "972507236381",
+    "project_id": "doctors-appointment-28",
+    "storage_bucket": "doctors-appointment-28.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:181642646846:android:d53b566a89aab4f5a7486f",
+        "mobilesdk_app_id": "1:972507236381:android:ca2f049adcea474cb55ef4",
         "android_client_info": {
           "package_name": "com.abraham.doctors_appt"
         }
@@ -15,7 +15,26 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC6dNEDmHUFJqCN6ziX317a0GvZRQ9LL6w"
+          "current_key": "AIzaSyAEz-4noWZ9cfCR3HL595lHw2eOSO2hc-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972507236381:android:8a7aee8ed33b74a2b55ef4",
+        "android_client_info": {
+          "package_name": "com.irakuharry.doctors_appointment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEz-4noWZ9cfCR3HL595lHw2eOSO2hc-k"
         }
       ],
       "services": {
