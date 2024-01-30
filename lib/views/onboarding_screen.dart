@@ -68,6 +68,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         ),
         onPressed: () async {
           // navigate to landing page
+          final preference = await SharedPreferences.getInstance();
+          preference.setBool('firstTimeUser', false);
           if (context.mounted) {
             Navigator.push(
                 context,

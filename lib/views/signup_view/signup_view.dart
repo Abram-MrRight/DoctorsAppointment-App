@@ -1,6 +1,7 @@
 import 'package:doctors_appt/consts/consts.dart';
 import 'package:doctors_appt/consts/lists.dart';
 import 'package:doctors_appt/controllers/auth_controller.dart';
+import 'package:doctors_appt/models.dart';
 import 'package:doctors_appt/res/components/custom_button.dart';
 import 'package:doctors_appt/res/components/custom_textfield.dart';
 import 'package:doctors_appt/res/components/widgets.dart';
@@ -153,7 +154,13 @@ class _SignupViewState extends State<SignupView> {
                             setState(() {
                               isConnecting = true;
                             });
-                            String response = await controller.signupUser(isDoctor);
+                            // String response = await controller.signupUser(isDoctor);
+                            String response = await UserService().addUser(UserModel(
+                              fullName: controller.fullNameController.text,
+                              email: controller.fullNameController.text,
+                              password: controller.fullNameController.text,
+                              isDoctor: isDoctor
+                            ));
                             setState(() {
                               isConnecting = false;
                             });
