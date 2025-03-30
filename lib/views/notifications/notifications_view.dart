@@ -26,7 +26,12 @@ class NotificationsView extends StatelessWidget {
             'You have a new message from Dr. Smith.',
             '9:30 AM',
           ),
-
+          _buildNotificationItem(
+            Icons.notifications,
+            'Patient Review: Ms. Joanna',
+            'Awesome patient care!',
+            '8:44 AM',
+          ),
           _buildNotificationHeader('Yesterday'),
           _buildNotificationItem(
             Icons.notifications,
